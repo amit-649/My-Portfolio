@@ -1,6 +1,13 @@
 # Amit Kumar Garai - Portfolio
 
-![Portfolio Preview](images/amit-profile.jpg)
+```text
+ █████╗ ███╗   ███╗██╗████████╗   ███╗   ███╗██╗     
+██╔══██╗████╗ ████║██║╚══██╔══╝   ████╗ ████║██║     
+███████║██╔████╔██║██║   ██║      ██╔████╔██║██║     
+██╔══██║██║╚██╔╝██║██║   ██║      ██║╚██╔╝██║██║     
+██║  ██║██║ ╚═╝ ██║██║   ██║   ██╗██║ ╚═╝ ██║███████╗
+╚═╝  ╚═╝╚═╝     ╚═╝╚═╝   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝
+```
 
 Welcome to the source code of my personal portfolio website. This project showcases my journey as an aspiring ML Engineer and Python Developer.
 
