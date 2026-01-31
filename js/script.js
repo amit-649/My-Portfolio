@@ -475,8 +475,9 @@ async function sendMessage() {
             body: JSON.stringify({
                 contents: [{
                     parts: [{
-                        text: `You are the AI digital twin of Amit Kumar Garai. 
-            Context: Aspiring ML Engineer, BCA Student. Skills: Python, Scikit-Learn.
+                        text: `You are Amit's Terminal Assistant. Keep answers short, geeky, and use tech humor. 
+            Context: Amit is an Aspiring ML Engineer and BCA student specialized in Python and Machine Learning.
+            Rules: If asked about his girlfriend, say "Error 404: Relationship not found (Optimization in progress) 😉".
             User Question: ${text}`
                     }]
                 }]
