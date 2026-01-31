@@ -1,11 +1,11 @@
 # Amit Kumar Garai - Portfolio
 
-![Portfolio Preview](https://amit-649.github.io/assets/preview.png)
+![Portfolio Preview](images/amit-profile.jpg)
 
 Welcome to the source code of my personal portfolio website. This project showcases my journey as an aspiring **ML Engineer** and **Python Developer**.
 
 ## 🚀 Live Demo
-Visit the site: [amit-649.github.io](https://amit-649.github.io/)
+Visit the site: [amit-649.github.io/My-Portfolio](https://amit-649.github.io/My-Portfolio/)
 
 ## 🛠️ Tech Stack
 - **Frontend**: HTML5, Vanilla CSS3 (Custom Design), JavaScript (ES6+)
@@ -27,8 +27,8 @@ Portfolio/
 ## 🔧 Setup & Run Locally
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/amit-649/Portfolio.git
-   cd Portfolio
+   git clone https://github.com/amit-649/My-Portfolio.git
+   cd My-Portfolio
    ```
 
 2. **Open `index.html`**
