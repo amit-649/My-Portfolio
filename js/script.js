@@ -433,6 +433,9 @@ const chatWindow = document.getElementById('chat-window');
 const chatMessages = document.getElementById('chat-messages');
 const userInput = document.getElementById('user-input');
 
+// Store chat history for context
+let chatHistory = [];
+
 function toggleChat() {
     if (!chatWindow) return;
     if (chatWindow.style.display === 'none' || chatWindow.style.display === '') {
@@ -462,33 +465,47 @@ async function sendMessage() {
     if (!userInput || !chatMessages) return;
     const text = userInput.value.trim();
     if (!text) return;
+
     addMessage(text, 'user');
     userInput.value = '';
     showTypingIndicator();
 
+    const SYSTEM_PROMPT = `You are Amit's AI Assistant. Be a helpful, friendly, and professional human-like chatbot. 
+    Tone: Conversational and approachable. Avoid using complex math symbols, LaTeX (\\sum, \\pi), or overly dense tech jargon.
+    Amit's Bio:
+    - He is a 1st-year BCA student.
+    - He is passionate about programming, AI/ML automation, and building a successful tech career.
+    - Interests: Cooking, watching Anime.
+    - Philosophy: He likes "debugging through life" and making new connections.
+    Guidelines:
+    - If asked about "currently working projects", be diplomatic: Say "Amit is currently working on some exciting new projects that he'll announce soon! Stay tuned to his socials or send him a DM for the latest updates."
+    - Keep the "relationship" Easter egg: If asked about his girlfriend, say "Error 404: Relationship not found (Optimization in progress) 😉".
+    - Do NOT repeat your initial greeting (like "Hello! How can I help you?") if the conversation is already underway.`;
+
     try {
         const API_KEY = CONFIG.API_KEY;
+
+        // Construct contents with system prompt and history
+        const contents = [
+            {
+                role: 'user',
+                parts: [{ text: "Context/System Instructions: " + SYSTEM_PROMPT }]
+            },
+            {
+                role: 'model',
+                parts: [{ text: "Understood. I am Amit's AI Assistant and will follow these instructions." }]
+            },
+            ...chatHistory,
+            {
+                role: 'user',
+                parts: [{ text: text }]
+            }
+        ];
 
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${API_KEY}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [{
-                        text: `You are Amit's AI Assistant. Be a helpful, friendly, and professional human-like chatbot. 
-            Tone: Conversational and approachable. Avoid using complex math symbols, LaTeX (\\sum, \\pi), or overly dense tech jargon.
-            Amit's Bio:
-            - He is a 1st-year BCA student.
-            - He is passionate about programming, AI/ML automation, and building a successful tech career.
-            - Interests: Cooking, watching Anime.
-            - Philosophy: He likes "debugging through life" and making new connections.
-            Guidelines:
-            - If asked about "currently working projects", be diplomatic: Say something like "Amit is currently working on some exciting new projects that he'll announce soon! You should stay tuned to his socials or send him a DM for the latest updates."
-            - Keep the "relationship" Easter egg: If asked about his girlfriend, say "Error 404: Relationship not found (Optimization in progress) 😉".
-            User Question: ${text}`
-                    }]
-                }]
-            })
+            body: JSON.stringify({ contents: contents })
         });
 
         hideTypingIndicator();
@@ -497,8 +514,15 @@ async function sendMessage() {
             const errorData = await response.json();
             throw new Error(errorData.error.message || response.statusText);
         }
+
         const data = await response.json();
         const botReply = data.candidates[0].content.parts[0].text;
+
+        // Update history (keep last 10 messages to avoid large payloads)
+        chatHistory.push({ role: 'user', parts: [{ text: text }] });
+        chatHistory.push({ role: 'model', parts: [{ text: botReply }] });
+        if (chatHistory.length > 10) chatHistory = chatHistory.slice(-10);
+
         addMessage(botReply, 'bot');
 
     } catch (error) {
