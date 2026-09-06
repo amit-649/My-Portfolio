@@ -998,19 +998,26 @@ nav {
     width: 100%;
     height: 0;
     background: linear-gradient(to bottom, #22c55e 0%, var(--cyan) 75%, var(--accent) 100%);
-    box-shadow: 0 0 10px var(--cyan);
+    box-shadow: 0 0 12px var(--cyan);
     border-radius: 2px;
+    will-change: height;
 }
 
 /* Traveling Cyber Train Capsule along Roadmap Spine */
 .roadmap-train-capsule {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
     top: 0;
     z-index: 10;
     pointer-events: none;
     opacity: 0;
+    transform: translate3d(-50%, 0, 0);
+    transition: opacity 0.3s ease;
+    will-change: transform, opacity;
+}
+
+.roadmap-train-capsule.visible {
+    opacity: 1;
 }
 
 .train-pod {
@@ -1025,6 +1032,17 @@ nav {
     font-size: 0.95rem;
     box-shadow: 0 0 16px rgba(34, 211, 238, 0.8), 0 0 30px var(--accent-glow);
     position: relative;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.train-pod.accelerating {
+    box-shadow: 0 0 28px var(--cyan), 0 0 45px var(--accent-glow);
+    transform: scale(1.22);
+}
+
+.train-pod.docked {
+    box-shadow: 0 0 20px var(--cyan), 0 0 35px var(--accent-glow);
+    transform: scale(1);
 }
 
 .ion-thruster {
@@ -1038,15 +1056,6 @@ nav {
     border-radius: 3px;
     filter: blur(1px);
     animation: thrustFlicker 0.12s infinite alternate;
-}
-
-.roadmap-timeline.animate .roadmap-train-capsule {
-    opacity: 1;
-    animation: roadmapTrainTravel 4.2s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
-}
-
-.roadmap-timeline.animate .roadmap-spine-fill {
-    animation: roadmapSpineFill 4.2s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
 }
 
 /* Milestone Item */
@@ -1305,19 +1314,49 @@ nav {
     }
 }
 
-.roadmap-timeline.animate .roadmap-milestone {
-    animation: milestoneFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: calc(var(--m-index) * 0.15s);
+.roadmap-milestone {
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
-@keyframes milestoneFadeIn {
+.roadmap-milestone:hover .marker-dot {
+    border-color: var(--cyan);
+    box-shadow: 0 0 16px var(--cyan-glow);
+    transform: scale(1.08);
+}
+
+.marker-dot.station-ping {
+    animation: stationPing 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes stationPing {
+    0% {
+        box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.9);
+        transform: scale(1);
+    }
+    40% {
+        box-shadow: 0 0 22px 10px rgba(34, 211, 238, 0.5);
+        transform: scale(1.18);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(34, 211, 238, 0);
+        transform: scale(1);
+    }
+}
+
+.roadmap-timeline.animate .milestone-card {
+    animation: milestoneCardSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--m-index) * 0.12s);
+}
+
+@keyframes milestoneCardSlideIn {
     0% {
         opacity: 0;
-        transform: translateY(16px);
+        transform: translateX(14px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateX(0);
     }
 }
 

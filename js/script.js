@@ -204,6 +204,24 @@
             osc.stop(now + 0.08);
         },
 
+        playStationPing() {
+            if (!this.enabled) return;
+            const ctx = this.getContext();
+            if (!ctx) return;
+            const now = ctx.currentTime;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(659.25, now); // E5
+            osc.frequency.exponentialRampToValueAtTime(880, now + 0.1); // A5
+            gain.gain.setValueAtTime(0.05, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.2);
+        },
+
         playDock() {
             if (!this.enabled) return;
             const ctx = this.getContext();
@@ -455,24 +473,231 @@
 
         revealElements.forEach((el) => observer.observe(el));
 
-        // Roadmap Milestone Animation Trigger
+        // Exact JS Physics Roadmap Train Animation Trigger
         const qualTimeline = document.getElementById('qualTimeline');
         if (qualTimeline) {
-            let dockSoundTimer = null;
+            let activeAnimFrame = null;
+            let currentTrainY = 0;
+
+            function getMarkerCenterY(milestoneEl) {
+                const marker = milestoneEl ? milestoneEl.querySelector('.marker-dot') : null;
+                const spine = qualTimeline.querySelector('.roadmap-spine');
+                if (!marker || !spine) return 0;
+
+                // Robust coordinate calculation immune to window scroll or CSS transforms
+                let markerOffsetTop = marker.offsetTop;
+                let parent = marker.offsetParent;
+                while (parent && parent !== qualTimeline) {
+                    markerOffsetTop += parent.offsetTop;
+                    parent = parent.offsetParent;
+                }
+
+                const spineOffsetTop = spine.offsetTop;
+                const trainPodHeight = 32;
+                const markerCenter = markerOffsetTop + (marker.offsetHeight / 2);
+                return markerCenter - spineOffsetTop - (trainPodHeight / 2);
+            }
+
+            function setTrainPosition(y) {
+                const spineFill = qualTimeline.querySelector('.roadmap-spine-fill');
+                const trainCapsule = qualTimeline.querySelector('.roadmap-train-capsule');
+                if (!spineFill || !trainCapsule) return;
+
+                currentTrainY = y;
+                trainCapsule.style.transform = `translate3d(-50%, ${y}px, 0)`;
+                spineFill.style.height = `${y + 16}px`;
+            }
+
+            function runRoadmapTrainAnimation() {
+                const spine = qualTimeline.querySelector('.roadmap-spine');
+                const spineFill = qualTimeline.querySelector('.roadmap-spine-fill');
+                const trainCapsule = qualTimeline.querySelector('.roadmap-train-capsule');
+                const trainPod = trainCapsule ? trainCapsule.querySelector('.train-pod') : null;
+                const milestones = qualTimeline.querySelectorAll('.roadmap-milestone');
+
+                if (!spine || !spineFill || !trainCapsule || milestones.length < 3) return;
+
+                const y0 = Math.max(0, getMarkerCenterY(milestones[0])); // Class 10 center
+                const y1 = getMarkerCenterY(milestones[1]); // Class 12 center
+                const y2 = getMarkerCenterY(milestones[2]); // BCA 2nd Year center (Exact Dock)
+
+                trainCapsule.classList.add('visible');
+                if (trainPod) {
+                    trainPod.classList.remove('accelerating', 'docked');
+                }
+
+                // Initial position anchored exactly at Class 10
+                setTrainPosition(y0);
+
+                const DURATION = 3800; // 3.8s continuous cinematic journey
+                let startTime = null;
+                let hasPingedStation1 = false;
+                let hasPlayedDock = false;
+
+                // Continuous Hermite Spline calculation (C1 continuous velocity)
+                function getSplineY(t) {
+                    if (t <= 0) return y0;
+                    if (t >= 1) return y2;
+
+                    const t1 = 0.42; // Station 1 checkpoint time ratio
+                    const totalDist = y2 - y0;
+                    const vMid = 1.16 * (totalDist / 1.0); // Cruising velocity across Station 1
+
+                    if (t < t1) {
+                        const u = t / t1;
+                        const h00 = (1 + 2 * u) * (1 - u) * (1 - u);
+                        const h10 = u * (1 - u) * (1 - u);
+                        const h01 = u * u * (3 - 2 * u);
+                        const h11 = u * u * (u - 1);
+
+                        const m0 = 0; // Starts smoothly from rest
+                        const m1 = vMid * t1;
+                        return h00 * y0 + h10 * m0 + h01 * y1 + h11 * m1;
+                    } else {
+                        const w = (t - t1) / (1 - t1);
+                        const dt2 = 1 - t1;
+
+                        const h00 = (1 + 2 * w) * (1 - w) * (1 - w);
+                        const h10 = w * (1 - w) * (1 - w);
+                        const h01 = w * w * (3 - 2 * w);
+                        const h11 = w * w * (w - 1);
+
+                        const m1_w = vMid * dt2;
+                        const m2 = 0; // Decelerates smoothly into destination
+                        return h00 * y1 + h10 * m1_w + h01 * y2 + h11 * m2;
+                    }
+                }
+
+                function step(now) {
+                    if (!startTime) startTime = now;
+                    const elapsed = now - startTime;
+                    const progress = Math.min(1, elapsed / DURATION);
+
+                    const currentY = getSplineY(progress);
+
+                    // Dynamic ion thruster flare during mid-journey acceleration
+                    if (trainPod) {
+                        if (progress > 0.08 && progress < 0.85) {
+                            trainPod.classList.add('accelerating');
+                        } else {
+                            trainPod.classList.remove('accelerating');
+                        }
+                    }
+
+                    // Checkpoint station ping when passing Class 12
+                    if (progress >= 0.42 && !hasPingedStation1) {
+                        hasPingedStation1 = true;
+                        const m1Dot = milestones[1].querySelector('.marker-dot');
+                        if (m1Dot) {
+                            m1Dot.classList.add('station-ping');
+                            setTimeout(() => m1Dot.classList.remove('station-ping'), 800);
+                        }
+                        SoundManager.playStationPing();
+                    }
+
+                    setTrainPosition(currentY);
+
+                    if (progress < 1) {
+                        activeAnimFrame = requestAnimationFrame(step);
+                    } else {
+                        // 100% exact sub-pixel docking alignment at BCA 2nd Year
+                        setTrainPosition(y2);
+                        if (trainPod) {
+                            trainPod.classList.remove('accelerating');
+                            trainPod.classList.add('docked');
+                        }
+                        const m2Dot = milestones[2].querySelector('.marker-dot');
+                        if (m2Dot) {
+                            m2Dot.classList.add('station-ping');
+                            setTimeout(() => m2Dot.classList.remove('station-ping'), 800);
+                        }
+                        if (!hasPlayedDock) {
+                            hasPlayedDock = true;
+                            SoundManager.playDock();
+                        }
+                    }
+                }
+
+                if (activeAnimFrame) cancelAnimationFrame(activeAnimFrame);
+                activeAnimFrame = requestAnimationFrame(step);
+            }
+
+            // Interactive Click to Glide Train directly to any Station
+            function glideTrainToStation(targetMilestone) {
+                if (!targetMilestone) return;
+                const targetY = getMarkerCenterY(targetMilestone);
+                const startY = currentTrainY;
+                const trainCapsule = qualTimeline.querySelector('.roadmap-train-capsule');
+                const trainPod = trainCapsule ? trainCapsule.querySelector('.train-pod') : null;
+
+                if (!trainCapsule) return;
+                trainCapsule.classList.add('visible');
+
+                if (activeAnimFrame) cancelAnimationFrame(activeAnimFrame);
+
+                const GLIDE_DURATION = 650;
+                let startTime = null;
+
+                function easeOutQuart(x) {
+                    return 1 - Math.pow(1 - x, 4);
+                }
+
+                function glideStep(now) {
+                    if (!startTime) startTime = now;
+                    const elapsed = now - startTime;
+                    const p = Math.min(1, elapsed / GLIDE_DURATION);
+                    const eased = easeOutQuart(p);
+                    const y = startY + (targetY - startY) * eased;
+
+                    setTrainPosition(y);
+
+                    if (p < 1) {
+                        activeAnimFrame = requestAnimationFrame(glideStep);
+                    } else {
+                        setTrainPosition(targetY);
+                        if (trainPod) {
+                            trainPod.classList.add('docked');
+                        }
+                        const dot = targetMilestone.querySelector('.marker-dot');
+                        if (dot) {
+                            dot.classList.add('station-ping');
+                            setTimeout(() => dot.classList.remove('station-ping'), 700);
+                        }
+                        SoundManager.playDock();
+                    }
+                }
+
+                activeAnimFrame = requestAnimationFrame(glideStep);
+            }
+
+            // Bind click to each milestone card/station
+            const allMilestones = qualTimeline.querySelectorAll('.roadmap-milestone');
+            allMilestones.forEach((m) => {
+                m.addEventListener('click', () => {
+                    glideTrainToStation(m);
+                });
+            });
+
+            let hasAutoTriggered = false;
             const trainObserver = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        qualTimeline.classList.remove('animate');
-                        void qualTimeline.offsetWidth; // Trigger reflow for clean restart
+                    if (entry.isIntersecting && !hasAutoTriggered) {
+                        hasAutoTriggered = true;
                         qualTimeline.classList.add('animate');
-                        clearTimeout(dockSoundTimer);
-                        dockSoundTimer = setTimeout(() => {
-                            SoundManager.playDock();
-                        }, 3800);
+                        setTimeout(runRoadmapTrainAnimation, 50);
                     }
                 });
-            }, { threshold: 0.2 });
+            }, { threshold: 0.15 });
             trainObserver.observe(qualTimeline);
+
+            window.addEventListener('resize', () => {
+                if (hasAutoTriggered) {
+                    const activeMilestone = qualTimeline.querySelector('.roadmap-milestone.active-milestone') || milestones[2];
+                    if (activeMilestone) {
+                        setTrainPosition(getMarkerCenterY(activeMilestone));
+                    }
+                }
+            });
         }
 
         // Stats Counter Animation
