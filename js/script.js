@@ -787,14 +787,78 @@
         });
     }
 
-    /* --- 10. SCROLL SPY & SMOOTH NAVIGATION --- */
+    /* --- 10. SCROLL SPY & VIEWPORT-CENTERED NAVIGATION --- */
+    function scrollToTargetCentered(targetElement) {
+        if (!targetElement) return;
+
+        const nav = document.querySelector('nav');
+        const navHeight = nav ? nav.offsetHeight + 24 : 84;
+        const viewportHeight = window.innerHeight;
+
+        // Get element's absolute position in the document
+        const rect = targetElement.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const elementTop = rect.top + scrollTop;
+        const elementHeight = targetElement.offsetHeight;
+
+        let targetScrollY;
+        const availableViewHeight = viewportHeight - navHeight;
+
+        if (elementHeight < availableViewHeight) {
+            // Section is shorter than available viewport -> center it perfectly in the visible window
+            const extraSpace = availableViewHeight - elementHeight;
+            targetScrollY = elementTop - navHeight - (extraSpace / 2);
+        } else {
+            // Section is taller than screen space -> position cleanly below the floating navbar with padding
+            targetScrollY = elementTop - navHeight - 16;
+        }
+
+        targetScrollY = Math.max(0, Math.round(targetScrollY));
+
+        window.scrollTo({
+            top: targetScrollY,
+            behavior: 'smooth'
+        });
+    }
+
+    function initSmoothCenterNavigation() {
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener('click', (e) => {
+                const href = anchor.getAttribute('href');
+                if (!href || href === '#') return;
+
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    scrollToTargetCentered(target);
+                    SoundManager.playClick();
+
+                    // Close mobile menu if open
+                    const navLinks = document.getElementById('navLinks');
+                    const menuToggle = document.getElementById('menuToggle');
+                    if (navLinks && navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+                    }
+
+                    if (history.pushState) {
+                        history.pushState(null, null, href);
+                    }
+                }
+            });
+        });
+    }
+
     function initScrollSpy() {
         const sections = document.querySelectorAll('header[id], section[id]');
         const navLinks = document.querySelectorAll('.nav-links a');
 
+        initSmoothCenterNavigation();
+
         window.addEventListener('scroll', () => {
             let currentId = '';
             const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+            const viewportCenter = scrollPos + window.innerHeight / 2;
 
             sections.forEach((sec) => {
                 const top = sec.offsetTop - 140;
