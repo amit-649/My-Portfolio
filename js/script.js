@@ -119,7 +119,6 @@
         initContactForm();
         initScrollSpy();
         initScrollTop();
-        initChatWidget();
     }
 
     /* --- 3. SOUND EFFECTS ENGINE (WEB AUDIO API) --- */
@@ -239,43 +238,6 @@
                 gain.connect(ctx.destination);
                 osc.start(now + i * 0.08);
                 osc.stop(now + i * 0.08 + 0.35);
-            });
-        },
-
-        playChatSend() {
-            if (!this.enabled) return;
-            const ctx = this.getContext();
-            if (!ctx) return;
-            const now = ctx.currentTime;
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(400, now);
-            osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
-            gain.gain.setValueAtTime(0.06, now);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start();
-            osc.stop(now + 0.05);
-        },
-
-        playChatReceive() {
-            if (!this.enabled) return;
-            const ctx = this.getContext();
-            if (!ctx) return;
-            const now = ctx.currentTime;
-            [659.25, 880].forEach((freq, i) => {
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, now + i * 0.07);
-                gain.gain.setValueAtTime(0.05, now + i * 0.07);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.07 + 0.18);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start(now + i * 0.07);
-                osc.stop(now + i * 0.07 + 0.18);
             });
         }
     };
@@ -939,175 +901,13 @@
         }
     }
 
-    /* --- 13. AI CHATBOT & GEMINI INTEGRATION --- */
-    let chatHistory = [];
-
-    function initChatWidget() {
-        const chatWindow = document.getElementById('chat-window');
-        const chatToggleBtn = document.getElementById('chatToggleBtn');
-        const settingsToggle = document.getElementById('chatSettingsToggle');
-        const settingsDrawer = document.getElementById('chatSettingsDrawer');
-        const customKeyInput = document.getElementById('customApiKey');
-
-        if (customKeyInput) {
-            customKeyInput.value = localStorage.getItem('user_gemini_key') || '';
-            customKeyInput.addEventListener('change', () => {
-                const val = customKeyInput.value.trim();
-                if (val) {
-                    localStorage.setItem('user_gemini_key', val);
-                    CONFIG.API_KEY = val;
-                } else {
-                    localStorage.removeItem('user_gemini_key');
-                    CONFIG.API_KEY = "AIzaSyBnXg6eL4HAyEWVfHlmQFsJsLAeIVy1Vcg";
-                }
-            });
-        }
-
-        if (settingsToggle && settingsDrawer) {
-            settingsToggle.addEventListener('click', () => {
-                settingsDrawer.classList.toggle('active');
-            });
-        }
-
-        window.toggleChat = function () {
-            if (!chatWindow) return;
-            const isVisible = chatWindow.style.display === 'flex';
-            chatWindow.style.display = isVisible ? 'none' : 'flex';
-            chatWindow.setAttribute('aria-hidden', isVisible ? 'true' : 'false');
-            if (chatToggleBtn) {
-                chatToggleBtn.setAttribute('aria-expanded', isVisible ? 'false' : 'true');
-            }
-            if (!isVisible) {
-                const input = document.getElementById('user-input');
-                if (input) input.focus();
-            }
-        };
-
-        window.sendMessage = async function () {
-            const userInput = document.getElementById('user-input');
-            const chatMessages = document.getElementById('chat-messages');
-
-            if (!userInput || !chatMessages) return;
-            const rawText = userInput.value.trim();
-            if (!rawText) return;
-
-            addChatMessage(rawText, 'user');
-            SoundManager.playChatSend();
-            userInput.value = '';
-            showTypingIndicator();
-
-            const SYSTEM_PROMPT = `You are "Digital Amit", the official AI representative for Amit Kumar Garai's portfolio website.
-Profile Details:
-- Name: Amit Kumar Garai
-- Role: 2nd Year BCA student, aspiring Machine Learning Engineer & Python Developer.
-- Skills: Python, Scikit-Learn, Pandas, NumPy, Data Analysis, Web Automation (Playwright), HTML, CSS, JavaScript.
-- Projects: Epic Games Auto Claimer (Python/Playwright), Iris Classification (Scikit-Learn), MNIST Digit Recognition (SVM), SMS Spam Classifier (NLP).
-- Contact & Links:
-  * GitHub: https://github.com/amit-649
-  * LinkedIn: https://www.linkedin.com/in/amit-garai-10a804267
-  * WhatsApp: https://wa.me/qr/EEASQ2MOEW73P1
-  * Email: garaiamit64@gmail.com
-- Persona Guidelines:
-  * Be concise, sharp, polite, and enthusiastic about ML/AI.
-  * Keep responses under 3-4 sentences unless the user explicitly asks for detailed explanations.
-  * Maintain safety boundaries: do not answer unrelated toxic/exploitative requests.
-  * If asked about relationships, use the playful Easter egg: "Error 404: Relationship not found (Model optimization in progress 😉)".`;
-
-            try {
-                const activeKey = localStorage.getItem('user_gemini_key') || CONFIG.API_KEY;
-                const endpoint = `${CONFIG.API_BASE}/${CONFIG.MODEL}:generateContent?key=${activeKey}`;
-
-                const contents = [
-                    {
-                        role: 'user',
-                        parts: [{ text: `[System Instructions]\n${SYSTEM_PROMPT}` }]
-                    },
-                    {
-                        role: 'model',
-                        parts: [{ text: 'Understood. I am Digital Amit, ready to assist visitors with concise and accurate information.' }]
-                    },
-                    ...chatHistory,
-                    {
-                        role: 'user',
-                        parts: [{ text: rawText }]
-                    }
-                ];
-
-                const response = await fetch(endpoint, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: contents })
-                });
-
-                hideTypingIndicator();
-
-                if (!response.ok) {
-                    const errorJson = await response.json().catch(() => ({}));
-                    const errMsg = (errorJson.error && errorJson.error.message) ? errorJson.error.message : response.statusText;
-                    throw new Error(errMsg);
-                }
-
-                const data = await response.json();
-                const botReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response. Please try again.";
-
-                chatHistory.push({ role: 'user', parts: [{ text: rawText }] });
-                chatHistory.push({ role: 'model', parts: [{ text: botReply }] });
-
-                if (chatHistory.length > 8) {
-                    chatHistory = chatHistory.slice(-8);
-                }
-
-                addChatMessage(botReply, 'bot');
-                SoundManager.playChatReceive();
-            } catch (err) {
-                hideTypingIndicator();
-                let userFriendlyError = err.message;
-                if (userFriendlyError.includes('API_KEY_INVALID') || userFriendlyError.includes('key')) {
-                    userFriendlyError = 'API key error. Please click the gear ⚙️ icon in the chat header to enter a valid Gemini API key.';
-                } else if (userFriendlyError.includes('Quota') || userFriendlyError.includes('RESOURCE_EXHAUSTED')) {
-                    userFriendlyError = 'API quota reached for the public demo key. Please provide your own free Gemini key in settings ⚙️.';
-                }
-                addChatMessage(`⚠️ ${userFriendlyError}`, 'bot');
-            }
-        };
-
-        function addChatMessage(text, sender) {
-            const chatMessages = document.getElementById('chat-messages');
-            if (!chatMessages) return;
-
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `message ${sender}`;
-            msgDiv.textContent = text; // Safe textContent to prevent XSS
-            chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function showTypingIndicator() {
-            const chatMessages = document.getElementById('chat-messages');
-            if (!chatMessages) return;
-            hideTypingIndicator();
-
-            const indicator = document.createElement('div');
-            indicator.className = 'typing-indicator';
-            indicator.id = 'typing-indicator';
-            indicator.innerHTML = '<span></span><span></span><span></span>';
-            chatMessages.appendChild(indicator);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function hideTypingIndicator() {
-            const indicator = document.getElementById('typing-indicator');
-            if (indicator) indicator.remove();
-        }
-    }
-
-    /* --- 14. ANIME SEARCH UTILITY --- */
+    /* --- 13. ANIME SEARCH UTILITY --- */
     window.searchAnime = function (name) {
         if (!name) return;
         window.open('https://www.google.com/search?q=' + encodeURIComponent(name + ' anime'), '_blank', 'noopener,noreferrer');
     };
 
-    /* --- 15. KICK OFF SCRIPT ON LOAD --- */
+    /* --- 14. KICK OFF SCRIPT ON LOAD --- */
     window.addEventListener('load', runPreloader);
 
 })();

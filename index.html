@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css?v=2.1" />
+    <link rel="stylesheet" href="css/style.css?v=2.2" />
 </head>
 
 <body>
@@ -505,54 +505,14 @@
             </div>
         </footer>
 
-    </div>
-
-    <!-- AI CHATBOT WIDGET -->
-    <div class="ai-chat-container">
-        <div class="chat-window" id="chat-window" role="dialog" aria-label="Digital Amit AI Assistant" aria-hidden="true">
-            <div class="chat-header">
-                <span><i class="fas fa-robot"></i> Digital Amit (AI)</span>
-                <div class="chat-header-actions">
-                    <button class="chat-header-btn" id="chatSettingsToggle" title="Configure API Key" aria-label="API Settings">
-                        <i class="fas fa-gear"></i>
-                    </button>
-                    <button class="chat-header-btn" onclick="toggleChat()" title="Close Chat" aria-label="Close Chat">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Settings Drawer for custom Key override -->
-            <div class="chat-settings-drawer" id="chatSettingsDrawer">
-                <label for="customApiKey" style="color: var(--muted); font-size:0.75rem;">Custom Gemini API Key (Optional):</label>
-                <input type="password" id="customApiKey" placeholder="Paste AIza... key here" autocomplete="off" />
-            </div>
-
-            <div class="chat-messages" id="chat-messages" role="log" aria-live="polite">
-                <div class="message bot">
-                    Hello! I'm Amit's AI Digital Twin. Ask me about his projects, skills, ML interests, or background! 🤖
-                </div>
-            </div>
-
-            <form class="chat-input-area" id="chatForm" onsubmit="event.preventDefault(); sendMessage();">
-                <input type="text" id="user-input" placeholder="Ask about Amit's skills or projects..." autocomplete="off" aria-label="Chat input message" />
-                <button type="submit" aria-label="Send message"><i class="fas fa-paper-plane"></i></button>
-            </form>
-        </div>
-
-        <button class="chat-toggle-btn" id="chatToggleBtn" onclick="toggleChat()" aria-label="Open AI Chatbot" aria-expanded="false">
-            <i class="fas fa-comment-dots"></i>
-        </button>
-    </div>
-
     <!-- Scroll To Top Button -->
     <button id="scrollTopBtn" onclick="scrollToTop()" class="scroll-top-btn" title="Go to top" aria-label="Scroll to top">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <!-- Application Logic -->
-    <script src="js/config.js?v=2.0"></script>
-    <script src="js/script.js?v=2.1"></script>
+    <script src="js/config.js?v=2.2"></script>
+    <script src="js/script.js?v=2.2"></script>
 </body>
 
 </html>
