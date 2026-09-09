@@ -18,6 +18,9 @@
         initScrollSpy();
         initScrollTop();
         initAnimeInteractions();
+        initResumeModal();
+        initCommandPalette();
+        initGitHubMetrics();
     }
 
     /* --- 4. THEME MANAGEMENT --- */
@@ -541,6 +544,328 @@
                 }
             });
         });
+    }
+
+    /* --- TOAST NOTIFICATIONS --- */
+    function showToast(message, icon = 'fa-circle-check') {
+        const container = document.getElementById('toastContainer');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        toast.className = 'toast-msg';
+        toast.innerHTML = `<i class="fas ${icon}"></i> <span>${message}</span>`;
+        container.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(10px) scale(0.95)';
+            setTimeout(() => toast.remove(), 300);
+        }, 3200);
+    }
+
+    /* --- 14. RESUME QUICK-PREVIEW MODAL --- */
+    function initResumeModal() {
+        const modal = document.getElementById('resumeModal');
+        const openBtn = document.getElementById('resumePreviewBtn');
+        const closeBtn = document.getElementById('closeResumeModal');
+
+        if (!modal) return;
+
+        function openModal() {
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            if (closeBtn) closeBtn.focus();
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            if (openBtn) openBtn.focus();
+        }
+
+        if (openBtn) {
+            openBtn.addEventListener('click', openModal);
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeModal);
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Expose globally for command palette invocation
+        window.openResumeModal = openModal;
+        window.closeResumeModal = closeModal;
+    }
+
+    /* --- 15. DEVELOPER COMMAND PALETTE (CTRL + K) --- */
+    function initCommandPalette() {
+        const palette = document.getElementById('cmdPalette');
+        const triggerBtn = document.getElementById('cmdPaletteTrigger');
+        const input = document.getElementById('cmdInput');
+        const results = document.getElementById('cmdResults');
+
+        if (!palette || !input || !results) return;
+
+        let selectedIndex = 0;
+
+        function getVisibleItems() {
+            return Array.from(results.querySelectorAll('.cmd-item:not([style*="display: none"])'));
+        }
+
+        function updateSelection(visibleItems) {
+            visibleItems.forEach((item, idx) => {
+                if (idx === selectedIndex) {
+                    item.classList.add('selected');
+                    item.scrollIntoView({ block: 'nearest' });
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+        }
+
+        function openPalette() {
+            palette.classList.add('active');
+            palette.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            input.value = '';
+            filterItems('');
+            selectedIndex = 0;
+            const visible = getVisibleItems();
+            updateSelection(visible);
+            setTimeout(() => input.focus(), 50);
+        }
+
+        function closePalette() {
+            palette.classList.remove('active');
+            palette.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        function filterItems(query) {
+            const cleanQuery = query.toLowerCase().trim();
+            const groups = results.querySelectorAll('.cmd-group');
+
+            groups.forEach((group) => {
+                let hasVisible = false;
+                const items = group.querySelectorAll('.cmd-item');
+
+                items.forEach((item) => {
+                    const text = item.textContent.toLowerCase();
+                    if (!cleanQuery || text.includes(cleanQuery)) {
+                        item.style.display = 'flex';
+                        hasVisible = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                group.style.display = hasVisible ? 'block' : 'none';
+            });
+
+            selectedIndex = 0;
+            const visible = getVisibleItems();
+            updateSelection(visible);
+        }
+
+        function executeItem(item) {
+            if (!item) return;
+            const action = item.getAttribute('data-action');
+            const target = item.getAttribute('data-target');
+            const url = item.getAttribute('data-url');
+
+            closePalette();
+
+            if (action === 'nav' && target) {
+                const el = document.querySelector(target);
+                if (el) {
+                    setTimeout(() => scrollToTargetCentered(el), 120);
+                }
+            } else if (action === 'resume-preview') {
+                setTimeout(() => {
+                    if (window.openResumeModal) window.openResumeModal();
+                }, 120);
+            } else if (action === 'resume-download') {
+                const link = document.createElement('a');
+                link.href = CONFIG.RESUME_PATH || 'Amit Kumar Garai - Resume.pdf';
+                link.download = 'Amit_Kumar_Garai_Resume.pdf';
+                link.click();
+                showToast('Downloading resume PDF...', 'fa-file-arrow-down');
+            } else if (action === 'copy-email') {
+                const email = CONFIG.AUTHOR_EMAIL || 'garaiamit64@gmail.com';
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(email).then(() => {
+                        showToast(`Copied ${email} to clipboard!`, 'fa-copy');
+                    }).catch(() => {
+                        showToast(email, 'fa-envelope');
+                    });
+                } else {
+                    showToast(email, 'fa-envelope');
+                }
+            } else if (action === 'toggle-theme') {
+                const themeToggle = document.getElementById('themeToggle');
+                if (themeToggle) {
+                    themeToggle.click();
+                    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                    showToast(`Switched to ${isDark ? 'Dark' : 'Light'} Mode`, isDark ? 'fa-moon' : 'fa-sun');
+                }
+            } else if (action === 'whatsapp') {
+                window.open('https://wa.me/qr/EEASQ2MOEW73P1', '_blank', 'noopener,noreferrer');
+            } else if (action === 'github') {
+                window.open('https://github.com/' + (CONFIG.GITHUB_USERNAME || 'amit-649'), '_blank', 'noopener,noreferrer');
+            } else if (action === 'linkedin') {
+                window.open('https://www.linkedin.com/in/amit-garai-10a804267', '_blank', 'noopener,noreferrer');
+            } else if (action === 'project-link' && url) {
+                window.open(url, '_blank', 'noopener,noreferrer');
+            }
+        }
+
+        // Event listeners
+        if (triggerBtn) {
+            triggerBtn.addEventListener('click', openPalette);
+        }
+
+        palette.addEventListener('click', (e) => {
+            if (e.target === palette) {
+                closePalette();
+            }
+        });
+
+        input.addEventListener('input', (e) => {
+            filterItems(e.target.value);
+        });
+
+        input.addEventListener('keydown', (e) => {
+            const visible = getVisibleItems();
+            if (visible.length === 0) return;
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedIndex = (selectedIndex + 1) % visible.length;
+                updateSelection(visible);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedIndex = (selectedIndex - 1 + visible.length) % visible.length;
+                updateSelection(visible);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                executeItem(visible[selectedIndex]);
+            }
+        });
+
+        results.addEventListener('click', (e) => {
+            const item = e.target.closest('.cmd-item');
+            if (item) {
+                executeItem(item);
+            }
+        });
+
+        window.addEventListener('keydown', (e) => {
+            // Check for Ctrl+K or Cmd+K
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+                e.preventDefault();
+                if (palette.classList.contains('active')) {
+                    closePalette();
+                } else {
+                    openPalette();
+                }
+            } else if (e.key === 'Escape' && palette.classList.contains('active')) {
+                closePalette();
+            }
+        });
+    }
+
+    /* --- 16. DYNAMIC GITHUB API METRICS --- */
+    async function initGitHubMetrics() {
+        const username = CONFIG.GITHUB_USERNAME || 'amit-649';
+        const cacheKey = 'gh_metrics_v1';
+        const cacheTTL = 30 * 60 * 1000; // 30 minutes
+
+        function applyMetrics(data) {
+            if (!data) return;
+
+            // Update Repository Count
+            const repoNumEl = document.getElementById('statReposNum');
+            if (repoNumEl && data.public_repos !== undefined) {
+                repoNumEl.setAttribute('data-target', data.public_repos);
+                repoNumEl.textContent = data.public_repos;
+            }
+
+            // Update Epic Games Auto Claimer Star Count
+            const epicStarsEl = document.getElementById('epicStarsBadge');
+            if (epicStarsEl && data.epic_stars !== undefined) {
+                epicStarsEl.innerHTML = `<i class="fas fa-star" style="color:#eab308;"></i> ${data.epic_stars} ${data.epic_stars === 1 ? 'Star' : 'Stars'}`;
+            }
+        }
+
+        // Check local cache
+        try {
+            const cached = localStorage.getItem(cacheKey);
+            if (cached) {
+                const parsed = JSON.parse(cached);
+                if (Date.now() - parsed.timestamp < cacheTTL) {
+                    applyMetrics(parsed.data);
+                    return; // Cache valid, avoid network fetch
+                }
+            }
+        } catch (e) {
+            // Ignore storage errors
+        }
+
+        // Fetch live metrics from public GitHub API
+        try {
+            const [userRes, reposRes] = await Promise.all([
+                fetch(`https://api.github.com/users/${username}`),
+                fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
+            ]);
+
+            if (!userRes.ok) return;
+
+            const userData = await userRes.json();
+            let epicStars = 2; // fallback
+
+            if (reposRes.ok) {
+                const reposData = await reposRes.json();
+                if (Array.isArray(reposData)) {
+                    const claimerRepo = reposData.find(r => r.name.toLowerCase() === 'epic-games-auto-claimer');
+                    if (claimerRepo) {
+                        epicStars = claimerRepo.stargazers_count;
+                    }
+                }
+            }
+
+            const metricsData = {
+                public_repos: userData.public_repos || 11,
+                epic_stars: epicStars
+            };
+
+            applyMetrics(metricsData);
+
+            // Cache to localStorage
+            try {
+                localStorage.setItem(cacheKey, JSON.stringify({
+                    timestamp: Date.now(),
+                    data: metricsData
+                }));
+            } catch (err) {
+                // Ignore storage quota errors
+            }
+        } catch (error) {
+            // Offline or rate-limited: silently keep default markup
+        }
     }
 
     /* --- KICK OFF SCRIPT ON LOAD --- */

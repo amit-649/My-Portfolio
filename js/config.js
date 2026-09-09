@@ -9,5 +9,9 @@ const CONFIG = {
     
     // Site Metadata
     SITE_URL: "https://amitcodes.in",
-    AUTHOR_EMAIL: "garaiamit64@gmail.com"
+    AUTHOR_EMAIL: "garaiamit64@gmail.com",
+    
+    // Developer Profiles & Resources
+    GITHUB_USERNAME: "amit-649",
+    RESUME_PATH: "Amit Kumar Garai - Resume.pdf"
 };

@@ -2792,3 +2792,543 @@ footer {
         transform: none !important;
     }
 }
+
+/* ==========================================================================
+   FEATURE ADDITIONS: COMMAND PALETTE, RESUME MODAL & TOASTS
+   ========================================================================== */
+
+/* --- Command Palette Trigger in Navbar --- */
+.cmd-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    color: var(--muted);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.cmd-trigger:hover {
+    background: rgba(34, 211, 238, 0.1);
+    border-color: var(--cyan);
+    color: var(--cyan);
+    box-shadow: 0 0 12px var(--cyan-glow);
+}
+
+.cmd-shortcut-badge {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+[data-theme="light"] .cmd-trigger {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #475569;
+}
+
+[data-theme="light"] .cmd-trigger:hover {
+    background: #e0f2fe;
+    border-color: #0284c7;
+    color: #0284c7;
+}
+
+[data-theme="light"] .cmd-shortcut-badge {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+    color: #0f172a;
+}
+
+/* --- Hero Preview CV Button --- */
+.btn-preview {
+    background: rgba(34, 211, 238, 0.1);
+    color: var(--cyan);
+    border: 1px solid rgba(34, 211, 238, 0.35);
+}
+
+.btn-preview:hover {
+    background: rgba(34, 211, 238, 0.22);
+    border-color: var(--cyan);
+    color: #ffffff;
+    box-shadow: 0 0 20px var(--cyan-glow);
+    transform: translateY(-2px);
+}
+
+[data-theme="light"] .btn-preview {
+    background: #e0f2fe;
+    color: #0284c7;
+    border-color: rgba(2, 132, 199, 0.3);
+}
+
+[data-theme="light"] .btn-preview:hover {
+    background: #0284c7;
+    color: #ffffff;
+    border-color: #0284c7;
+}
+
+/* --- Modal Base (Used by Resume Modal) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(9, 13, 22, 0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-dialog {
+    background: #0f172a;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 30px rgba(34, 211, 238, 0.15);
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.96) translateY(10px);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active .modal-dialog {
+    transform: scale(1) translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.modal-title-group {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.modal-icon {
+    font-size: 1.4rem;
+    color: var(--cyan);
+}
+
+.modal-title-group h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text);
+}
+
+.modal-subtitle {
+    font-size: 0.78rem;
+    color: var(--muted);
+}
+
+.modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.btn-icon:hover {
+    background: rgba(34, 211, 238, 0.12);
+    border-color: var(--cyan);
+    color: var(--cyan);
+}
+
+.btn-icon.close-btn:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.resume-body {
+    height: 75vh;
+    width: 100%;
+    background: #020617;
+    position: relative;
+}
+
+.resume-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+[data-theme="light"] .modal-dialog {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.25);
+}
+
+[data-theme="light"] .modal-header {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .modal-icon {
+    color: #0284c7;
+}
+
+[data-theme="light"] .btn-icon {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #475569;
+}
+
+[data-theme="light"] .btn-icon:hover {
+    background: #e0f2fe;
+    border-color: #0284c7;
+    color: #0284c7;
+}
+
+[data-theme="light"] .resume-body {
+    background: #f8fafc;
+}
+
+/* --- Command Palette Styles --- */
+.cmd-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(9, 13, 22, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 10000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 12vh 20px 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.cmd-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cmd-dialog {
+    background: #0f172a;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 620px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(34, 211, 238, 0.12);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.96) translateY(-10px);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cmd-overlay.active .cmd-dialog {
+    transform: scale(1) translateY(0);
+}
+
+.cmd-search-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.cmd-search-icon {
+    font-size: 1.1rem;
+    color: var(--cyan);
+}
+
+#cmdInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+#cmdInput::placeholder {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.cmd-badge-hint {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 7px;
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-family: 'Fira Code', monospace;
+}
+
+.cmd-results {
+    max-height: 380px;
+    overflow-y: auto;
+    padding: 10px 12px;
+}
+
+.cmd-results::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cmd-results::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.cmd-group {
+    margin-bottom: 10px;
+}
+
+.cmd-group:last-child {
+    margin-bottom: 0;
+}
+
+.cmd-group-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    padding: 8px 12px 4px;
+}
+
+.cmd-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    color: var(--text);
+    font-size: 0.92rem;
+}
+
+.cmd-item:hover,
+.cmd-item.selected {
+    background: rgba(34, 211, 238, 0.12);
+    color: #ffffff;
+}
+
+.cmd-item-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cmd-item-left i {
+    width: 18px;
+    color: var(--cyan);
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.cmd-shortcut {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: 'Fira Code', monospace;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    padding: 2px 7px;
+    border-radius: 4px;
+}
+
+.cmd-item.selected .cmd-shortcut {
+    border-color: rgba(34, 211, 238, 0.3);
+    color: var(--cyan);
+}
+
+.cmd-footer {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 10px 20px;
+    border-top: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.015);
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+
+.cmd-footer kbd {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.7rem;
+    color: var(--text);
+}
+
+[data-theme="light"] .cmd-dialog {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+}
+
+[data-theme="light"] .cmd-search-bar {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .cmd-search-icon {
+    color: #0284c7;
+}
+
+[data-theme="light"] #cmdInput {
+    color: #0f172a;
+}
+
+[data-theme="light"] .cmd-badge-hint {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+    color: #475569;
+}
+
+[data-theme="light"] .cmd-item:hover,
+[data-theme="light"] .cmd-item.selected {
+    background: #f0f9ff;
+    color: #0284c7;
+}
+
+[data-theme="light"] .cmd-item-left i {
+    color: #0284c7;
+}
+
+[data-theme="light"] .cmd-shortcut {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #64748b;
+}
+
+[data-theme="light"] .cmd-footer {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    color: #64748b;
+}
+
+[data-theme="light"] .cmd-footer kbd {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+    color: #0f172a;
+}
+
+/* --- Toast Notification --- */
+.toast-container {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10001;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+}
+
+.toast-msg {
+    pointer-events: auto;
+    background: #0f172a;
+    color: #ffffff;
+    border: 1px solid var(--cyan);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px var(--cyan-glow);
+    padding: 10px 20px;
+    border-radius: var(--radius-full);
+    font-size: 0.88rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toast-msg i {
+    color: var(--cyan);
+}
+
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+[data-theme="light"] .toast-msg {
+    background: #ffffff;
+    color: #0f172a;
+    border-color: #0284c7;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15), 0 0 15px rgba(2, 132, 199, 0.2);
+}
+
+[data-theme="light"] .toast-msg i {
+    color: #0284c7;
+}
+
+/* Mobile Responsiveness for Modal & Command Palette */
+@media (max-width: 600px) {
+    .cmd-overlay {
+        padding: 5vh 12px 12px;
+    }
+    .modal-overlay {
+        padding: 12px;
+    }
+    .resume-body {
+        height: 68vh;
+    }
+    .cmd-footer {
+        display: none;
+    }
+}

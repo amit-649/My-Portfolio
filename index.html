@@ -65,6 +65,10 @@
                 <a href="#qualifications">Journey</a>
                 <a href="#contact">Contact</a>
                 <div class="nav-controls">
+                    <button id="cmdPaletteTrigger" class="cmd-trigger" aria-label="Open Command Palette (Ctrl+K)" title="Command Palette (Ctrl + K)">
+                        <i class="fas fa-terminal"></i>
+                        <span class="cmd-shortcut-badge">⌘K</span>
+                    </button>
                     <button id="themeToggle" class="theme-toggle" aria-label="Toggle Dark/Light Mode" title="Toggle theme">
                         <i class="fas fa-sun"></i>
                     </button>
@@ -112,7 +116,12 @@
 
                     <div class="btn-group">
                         <a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Get In Touch</a>
-                        <a href="Amit Kumar Garai - Resume.pdf" download="Amit_Kumar_Garai_Resume.pdf" class="btn"><i class="fas fa-download"></i> Download CV</a>
+                        <button type="button" class="btn btn-preview" id="resumePreviewBtn" aria-label="Preview Amit's Resume in Modal">
+                            <i class="fas fa-file-lines"></i> Preview CV
+                        </button>
+                        <a href="Amit Kumar Garai - Resume.pdf" download="Amit_Kumar_Garai_Resume.pdf" class="btn" title="Download PDF directly">
+                            <i class="fas fa-download"></i> Download CV
+                        </a>
                         <a href="https://wa.me/qr/EEASQ2MOEW73P1" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
                     </div>
 
@@ -141,9 +150,9 @@
                     <span class="stat-number" data-target="4">0</span>
                     <span class="stat-label">Projects Built</span>
                 </a>
-                <a href="#techstack" class="stat-card">
-                    <span class="stat-number" data-target="8">0</span>
-                    <span class="stat-label">Core Technologies</span>
+                <a href="https://github.com/amit-649?tab=repositories" target="_blank" rel="noopener noreferrer" class="stat-card" id="statCardRepos">
+                    <span class="stat-number" id="statReposNum" data-target="11">0</span>
+                    <span class="stat-label" id="statReposLabel">Public Repositories</span>
                 </a>
                 <div class="stat-card">
                     <span class="stat-number" data-target="2">0</span>
@@ -388,6 +397,7 @@
                         <div class="project-bento-card tilt-card featured-project" data-tilt>
                             <div class="project-top">
                                 <span class="project-domain-pill automation"><i class="fas fa-robot"></i> Headless Automation</span>
+                                <span class="project-metric-badge" id="epicStarsBadge"><i class="fas fa-star" style="color:#eab308;"></i> 2 Stars</span>
                                 <span class="project-metric-badge"><i class="fas fa-bolt"></i> 100% Zero-Touch Cron</span>
                             </div>
                             <h3 class="project-title">
@@ -694,9 +704,137 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
+    <!-- RESUME QUICK-PREVIEW MODAL -->
+    <div id="resumeModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="resumeModalTitle">
+        <div class="modal-dialog resume-dialog">
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <i class="fas fa-file-lines modal-icon"></i>
+                    <div>
+                        <h3 id="resumeModalTitle">Amit Kumar Garai — Resume</h3>
+                        <span class="modal-subtitle">Machine Learning &amp; Python Developer</span>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <a href="Amit Kumar Garai - Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-icon" title="Open in New Tab" aria-label="Open PDF in new tab">
+                        <i class="fas fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <a href="Amit Kumar Garai - Resume.pdf" download="Amit_Kumar_Garai_Resume.pdf" class="btn-icon" title="Download PDF" aria-label="Download Resume PDF">
+                        <i class="fas fa-download"></i>
+                    </a>
+                    <button type="button" class="btn-icon close-btn" id="closeResumeModal" aria-label="Close resume preview">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body resume-body">
+                <iframe src="Amit Kumar Garai - Resume.pdf#view=FitH" title="Amit Kumar Garai Resume Preview" class="resume-iframe"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMMAND PALETTE (CTRL + K / CMD + K) -->
+    <div id="cmdPalette" class="cmd-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="cmd-dialog">
+            <div class="cmd-search-bar">
+                <i class="fas fa-magnifying-glass cmd-search-icon"></i>
+                <input type="text" id="cmdInput" placeholder="Type a command or search..." autocomplete="off" spellcheck="false" aria-label="Command search input" />
+                <span class="cmd-badge-hint">ESC</span>
+            </div>
+            <div class="cmd-results" id="cmdResults" role="listbox">
+                <!-- Navigation Group -->
+                <div class="cmd-group">
+                    <div class="cmd-group-title">Navigation</div>
+                    <div class="cmd-item" role="option" data-action="nav" data-target="#about">
+                        <span class="cmd-item-left"><i class="fas fa-user-astronaut"></i> About Me</span>
+                        <span class="cmd-shortcut">Jump</span>
+                    </div>
+                    <div class="cmd-item" role="option" data-action="nav" data-target="#techstack">
+                        <span class="cmd-item-left"><i class="fas fa-layer-group"></i> Skills &amp; Tooling</span>
+                        <span class="cmd-shortcut">Jump</span>
+                    </div>
+                    <div class="cmd-item" role="option" data-action="nav" data-target="#projects">
+                        <span class="cmd-item-left"><i class="fas fa-code-branch"></i> Featured Projects</span>
+                        <span class="cmd-shortcut">Jump</span>
+                    </div>
+                    <div class="cmd-item" role="option" data-action="nav" data-target="#qualifications">
+                        <span class="cmd-item-left"><i class="fas fa-graduation-cap"></i> Journey &amp; Milestones</span>
+                        <span class="cmd-shortcut">Jump</span>
+                    </div>
+                    <div class="cmd-item" role="option" data-action="nav" data-target="#contact">
+                        <span class="cmd-item-left"><i class="fas fa-paper-plane"></i> Contact Amit</span>
+                        <span class="cmd-shortcut">Jump</span>
+                    </div>
+                </div>
+
+                <!-- Quick Actions Group -->
+                <div class="cmd-group">
+                    <div class="cmd-group-title">Quick Actions</div>
+                    <div class="cmd-item" role="option" data-action="resume-preview">
+                        <span class="cmd-item-left"><i class="fas fa-file-lines"></i> Preview Resume (In-Browser)</span>
+                        <span class="cmd-shortcut">Modal</span>
+                    </div>
+                    <div class="cmd-item" role="option" data-action="resume-download">
+                        <span class="cmd-item-left"><i class="fas fa-download"></i> Download Resume PDF</span>
+                        <span class="cmd-shortcut">PDF</span>
+                    </div>
+                    <div class="cmd-item" role="option" data-action="copy-email">
+                        <span class="cmd-item-left"><i class="fas fa-copy"></i> Copy Email Address</span>
+                        <span class="cmd-shortcut">Copy</span>
+                    </div>
+                    <div class="cmd-item" role="option" data-action="toggle-theme">
+                        <span class="cmd-item-left"><i class="fas fa-circle-half-stroke"></i> Toggle Dark / Light Mode</span>
+                        <span class="cmd-shortcut">Theme</span>
+                    </div>
+                    <div class="cmd-item" role="option" data-action="whatsapp">
+                        <span class="cmd-item-left"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</span>
+                        <span class="cmd-shortcut">Chat</span>
+                    </div>
+                    <div class="cmd-item" role="option" data-action="github">
+                        <span class="cmd-item-left"><i class="fab fa-github"></i> Open GitHub Profile (@amit-649)</span>
+                        <span class="cmd-shortcut">Link</span>
+                    </div>
+                    <div class="cmd-item" role="option" data-action="linkedin">
+                        <span class="cmd-item-left"><i class="fab fa-linkedin"></i> Open LinkedIn Profile</span>
+                        <span class="cmd-shortcut">Link</span>
+                    </div>
+                </div>
+
+                <!-- Featured Projects Group -->
+                <div class="cmd-group">
+                    <div class="cmd-group-title">Featured Projects</div>
+                    <div class="cmd-item" role="option" data-action="project-link" data-url="https://github.com/amit-649/epic-games-auto-claimer">
+                        <span class="cmd-item-left"><i class="fas fa-robot"></i> Epic Games Auto Claimer</span>
+                        <span class="cmd-shortcut">Playwright</span>
+                    </div>
+                    <div class="cmd-item" role="option" data-action="nav" data-target="#projects">
+                        <span class="cmd-item-left"><i class="fas fa-brain"></i> Iris Flower Classification</span>
+                        <span class="cmd-shortcut">Scikit-Learn</span>
+                    </div>
+                    <div class="cmd-item" role="option" data-action="nav" data-target="#projects">
+                        <span class="cmd-item-left"><i class="fas fa-eye"></i> MNIST Digit Recognition</span>
+                        <span class="cmd-shortcut">SVM</span>
+                    </div>
+                    <div class="cmd-item" role="option" data-action="nav" data-target="#projects">
+                        <span class="cmd-item-left"><i class="fas fa-filter"></i> SMS Spam Detection</span>
+                        <span class="cmd-shortcut">NLP</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cmd-footer">
+                <span><kbd>↑</kbd> <kbd>↓</kbd> navigate</span>
+                <span><kbd>↵</kbd> select</span>
+                <span><kbd>esc</kbd> close</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
     <!-- Application Logic -->
-    <script src="js/config.js?v=2.2"></script>
-    <script src="js/script.js?v=3.2"></script>
+    <script src="js/config.js?v=2.3"></script>
+    <script src="js/script.js?v=3.3"></script>
 </body>
 
 </html>
