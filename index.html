@@ -45,11 +45,6 @@
 
 <body>
 
-    <!-- HACKER BOOT PRELOADER -->
-    <aside id="preloader" aria-label="System Boot Loader">
-        <button class="preloader-skip" id="preloaderSkip" aria-label="Skip Boot Sequence">Skip [Esc]</button>
-    </aside>
-
     <!-- NEURAL NETWORK BACKGROUND CANVAS -->
     <canvas id="neuro-canvas" aria-hidden="true"></canvas>
 
@@ -65,15 +60,11 @@
             </button>
             <div class="nav-links" id="navLinks">
                 <a href="#about">About</a>
-                <a href="#services">Services</a>
                 <a href="#techstack">Skills</a>
                 <a href="#projects">Projects</a>
                 <a href="#qualifications">Journey</a>
                 <a href="#contact">Contact</a>
                 <div class="nav-controls">
-                    <button id="audioToggle" class="theme-toggle audio-toggle" aria-label="Toggle UI Audio Effects" title="Toggle Sound Effects">
-                        <i class="fas fa-volume-xmark"></i>
-                    </button>
                     <button id="themeToggle" class="theme-toggle" aria-label="Toggle Dark/Light Mode" title="Toggle theme">
                         <i class="fas fa-sun"></i>
                     </button>
@@ -168,63 +159,97 @@
             <div class="main-stack">
 
                 <!-- ABOUT SECTION -->
-                <section id="about" class="tilt-card reveal" data-tilt>
-                    <h2><i class="fas fa-user-astronaut"></i> About Me</h2>
+                <section id="about" class="about-section tilt-card reveal" data-tilt>
+                    <div class="about-header">
+                        <span class="section-kicker">ENGINEERING PROFILE</span>
+                        <h2><i class="fas fa-user-astronaut"></i> About Me</h2>
+                    </div>
                     <p class="about-text">
-                        Hi! I'm Amit Kumar Garai, a curious and driven <strong>ML enthusiast</strong> based in India. I am currently a 2nd year BCA student diving deep into <strong>Data Science</strong>, <strong>Machine Learning</strong>, and <strong>Automated Workflows</strong>.
+                        Hi! I'm Amit Kumar Garai, a curious and driven <strong>Machine Learning enthusiast</strong> and Python developer based in India. Currently in my 2nd year of BCA, I focus on engineering intelligent models, predictive systems, and high-efficiency automation workflows.
                     </p>
-                    <p class="about-text">
-                        My primary technical focus includes:
-                    </p>
-                    <ul class="about-list">
-                        <li><span class="hash">#</span> Training predictive models with Python and Scikit-Learn</li>
-                        <li><span class="hash">#</span> Data manipulation, cleaning, and analysis using Pandas & NumPy</li>
-                        <li><span class="hash">#</span> Engineering automation bots and exploring modern neural architectures</li>
-                    </ul>
+                    
+                    <div class="about-focus-grid">
+                        <div class="focus-item">
+                            <span class="focus-icon"><i class="fas fa-brain"></i></span>
+                            <div>
+                                <h4>Machine Learning &amp; Analytics</h4>
+                                <p>Designing predictive models with Scikit-Learn, data manipulation via Pandas &amp; NumPy, and statistical evaluation.</p>
+                            </div>
+                        </div>
+                        <div class="focus-item">
+                            <span class="focus-icon"><i class="fas fa-robot"></i></span>
+                            <div>
+                                <h4>Autonomous Bots &amp; Automation</h4>
+                                <p>Engineering resilient headless browser automations and cron scrapers using Python and Playwright.</p>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="skill-cloud">
                         <span class="skill-tag">Python 🐍</span>
                         <span class="skill-tag">Scikit-Learn</span>
                         <span class="skill-tag">Pandas</span>
                         <span class="skill-tag">NumPy</span>
-                        <span class="skill-tag">Automation</span>
+                        <span class="skill-tag">Playwright Automation</span>
                         <span class="skill-tag">NLP Basics</span>
+                        <span class="skill-tag">Computer Vision</span>
                     </div>
-                </section>
 
-                <!-- SERVICES / WHAT I DO -->
-                <section id="services" class="services-section reveal">
-                    <h2 class="section-title"><i class="fas fa-laptop-code"></i> What I Do</h2>
-                    <div class="services-grid">
-                        <div class="service-card tilt-card" data-tilt>
-                            <div class="service-icon"><i class="fas fa-brain"></i></div>
-                            <h3>Machine Learning</h3>
-                            <p>Designing and evaluating machine learning pipelines. From classification to regression, solving structured data challenges.</p>
-                            <div class="service-tags">
-                                <span>Classification</span>
-                                <span>Regression</span>
-                                <span>Clustering</span>
-                            </div>
+                    <!-- Beyond Code / Inspirations Subcard -->
+                    <div class="about-inspirations">
+                        <div class="inspirations-header">
+                            <h3><i class="fas fa-tv"></i> Beyond Code &bull; Favorite Anime &amp; Inspirations</h3>
+                            <span class="inspirations-sub">Stories that fuel curiosity, logic &amp; creativity</span>
                         </div>
-                        <div class="service-card tilt-card" data-tilt>
-                            <div class="service-icon"><i class="fab fa-python"></i></div>
-                            <h3>Python Development</h3>
-                            <p>Writing clean, maintainable Python scripts for workflow automation, web scraping, and API integrations.</p>
-                            <div class="service-tags">
-                                <span>Automation</span>
-                                <span>Scripting</span>
-                                <span>Playwright</span>
-                            </div>
-                        </div>
-                        <div class="service-card tilt-card" data-tilt>
-                            <div class="service-icon"><i class="fas fa-chart-line"></i></div>
-                            <h3>Data Analysis</h3>
-                            <p>Extracting actionable patterns and generating visual summaries from raw datasets using Pandas and Matplotlib.</p>
-                            <div class="service-tags">
-                                <span>Pandas</span>
-                                <span>NumPy</span>
-                                <span>Exploratory Analysis</span>
-                            </div>
+                        <div class="anime-list-compact">
+                            <button type="button" class="anime-item" data-anime="Steins;Gate" aria-label="Search Steins;Gate anime">
+                                <span class="anime-left">
+                                    <span class="anime-thumb-wrapper">
+                                        <img src="images/anime/steins-gate.jpg" alt="Steins;Gate Poster" class="anime-thumb" width="42" height="42" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
+                                        <span class="anime-fallback-icon" aria-hidden="true"><i class="fas fa-tv"></i></span>
+                                    </span>
+                                    <span class="anime-info">
+                                        <span class="anime-name">Steins;Gate</span>
+                                        <span class="anime-tag">Sci-Fi / Time Travel</span>
+                                    </span>
+                                </span>
+                            </button>
+                            <button type="button" class="anime-item" data-anime="Mushoku Tensei" aria-label="Search Mushoku Tensei anime">
+                                <span class="anime-left">
+                                    <span class="anime-thumb-wrapper">
+                                        <img src="images/anime/mushoku-tensei.jpg" alt="Mushoku Tensei Poster" class="anime-thumb" width="42" height="42" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
+                                        <span class="anime-fallback-icon" aria-hidden="true"><i class="fas fa-magic"></i></span>
+                                    </span>
+                                    <span class="anime-info">
+                                        <span class="anime-name">Mushoku Tensei</span>
+                                        <span class="anime-tag">World-Building</span>
+                                    </span>
+                                </span>
+                            </button>
+                            <button type="button" class="anime-item" data-anime="Re:Zero" aria-label="Search Re:Zero anime">
+                                <span class="anime-left">
+                                    <span class="anime-thumb-wrapper">
+                                        <img src="images/anime/re-zero.jpg" alt="Re:Zero Poster" class="anime-thumb" width="42" height="42" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
+                                        <span class="anime-fallback-icon" aria-hidden="true"><i class="fas fa-redo-alt"></i></span>
+                                    </span>
+                                    <span class="anime-info">
+                                        <span class="anime-name">Re:Zero</span>
+                                        <span class="anime-tag">Psychological</span>
+                                    </span>
+                                </span>
+                            </button>
+                            <button type="button" class="anime-item" data-anime="Your Name" aria-label="Search Your Name anime">
+                                <span class="anime-left">
+                                    <span class="anime-thumb-wrapper">
+                                        <img src="images/anime/your-name.jpg" alt="Your Name Poster" class="anime-thumb" width="42" height="42" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
+                                        <span class="anime-fallback-icon" aria-hidden="true"><i class="fas fa-meteor"></i></span>
+                                    </span>
+                                    <span class="anime-info">
+                                        <span class="anime-name">Your Name</span>
+                                        <span class="anime-tag">Animation Movie</span>
+                                    </span>
+                                </span>
+                            </button>
                         </div>
                     </div>
                 </section>
@@ -491,16 +516,9 @@
                     </div>
 
                     <div class="roadmap-timeline" id="qualTimeline">
-                        <!-- Connecting Continuous Laser Line & Kinetic Train Capsule -->
+                        <!-- Connecting Continuous Laser Line -->
                         <div class="roadmap-spine">
                             <div class="roadmap-spine-fill"></div>
-                            <!-- Sleek Traveling Cyber Train Capsule -->
-                            <div class="roadmap-train-capsule" id="roadmapTrain">
-                                <div class="train-pod">
-                                    <i class="fas fa-train-subway"></i>
-                                    <span class="ion-thruster"></span>
-                                </div>
-                            </div>
                         </div>
 
                         <!-- Milestone 1: Class 10 -->
@@ -604,52 +622,7 @@
                     </div>
                 </section>
 
-                <!-- INTERESTS / ANIME -->
-                <section id="anime" class="tilt-card reveal" data-tilt>
-                    <h2><i class="fas fa-tv"></i> Favorite Anime &amp; Inspirations</h2>
-                    <div class="anime-list">
-                        <button type="button" class="anime-item" data-anime="Steins;Gate" aria-label="Search Steins;Gate anime">
-                            <span class="anime-left">
-                                <span class="anime-thumb-wrapper">
-                                    <img src="images/anime/steins-gate.jpg" alt="Steins;Gate Poster" class="anime-thumb" width="42" height="42" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
-                                    <span class="anime-fallback-icon" aria-hidden="true"><i class="fas fa-tv"></i></span>
-                                </span>
-                                <span class="anime-name">Steins;Gate</span>
-                            </span>
-                            <span class="anime-tag">Sci-Fi / Time Travel</span>
-                        </button>
-                        <button type="button" class="anime-item" data-anime="Mushoku Tensei" aria-label="Search Mushoku Tensei anime">
-                            <span class="anime-left">
-                                <span class="anime-thumb-wrapper">
-                                    <img src="images/anime/mushoku-tensei.jpg" alt="Mushoku Tensei Poster" class="anime-thumb" width="42" height="42" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
-                                    <span class="anime-fallback-icon" aria-hidden="true"><i class="fas fa-magic"></i></span>
-                                </span>
-                                <span class="anime-name">Mushoku Tensei</span>
-                            </span>
-                            <span class="anime-tag">Isekai / World-Building</span>
-                        </button>
-                        <button type="button" class="anime-item" data-anime="Re:Zero" aria-label="Search Re:Zero anime">
-                            <span class="anime-left">
-                                <span class="anime-thumb-wrapper">
-                                    <img src="images/anime/re-zero.jpg" alt="Re:Zero Poster" class="anime-thumb" width="42" height="42" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
-                                    <span class="anime-fallback-icon" aria-hidden="true"><i class="fas fa-redo-alt"></i></span>
-                                </span>
-                                <span class="anime-name">Re:Zero</span>
-                            </span>
-                            <span class="anime-tag">Psychological Thriller</span>
-                        </button>
-                        <button type="button" class="anime-item" data-anime="Your Name" aria-label="Search Your Name anime">
-                            <span class="anime-left">
-                                <span class="anime-thumb-wrapper">
-                                    <img src="images/anime/your-name.jpg" alt="Your Name Poster" class="anime-thumb" width="42" height="42" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
-                                    <span class="anime-fallback-icon" aria-hidden="true"><i class="fas fa-meteor"></i></span>
-                                </span>
-                                <span class="anime-name">Your Name</span>
-                            </span>
-                            <span class="anime-tag">Animation Movie</span>
-                        </button>
-                    </div>
-                </section>
+
 
                 <!-- CONTACT SECTION -->
                 <section id="contact" class="contact-section reveal">

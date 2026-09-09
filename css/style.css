@@ -147,7 +147,6 @@
 
 [data-theme="light"] .tilt-card,
 [data-theme="light"] .stat-card,
-[data-theme="light"] .service-card,
 [data-theme="light"] .techstack-category,
 [data-theme="light"] .project-bento-card,
 [data-theme="light"] .contact-section {
@@ -158,7 +157,6 @@
 
 [data-theme="light"] .tilt-card:hover,
 [data-theme="light"] .stat-card:hover,
-[data-theme="light"] .service-card:hover,
 [data-theme="light"] .techstack-category:hover,
 [data-theme="light"] .project-bento-card:hover {
     border-color: rgba(2, 132, 199, 0.4);
@@ -173,16 +171,34 @@
     color: #64748b;
 }
 
-[data-theme="light"] .service-icon {
-    background: rgba(109, 40, 217, 0.08);
-    border-color: rgba(109, 40, 217, 0.3);
-    color: #6d28d9;
+[data-theme="light"] .focus-item {
+    background: #f8fafc;
+    border-color: #e2e8f0;
 }
 
-[data-theme="light"] .service-tags span {
-    background: rgba(15, 23, 42, 0.04);
-    border-color: rgba(148, 163, 184, 0.25);
+[data-theme="light"] .focus-item:hover {
+    border-color: rgba(2, 132, 199, 0.4);
+    background: #f0f9ff;
+}
+
+[data-theme="light"] .focus-icon {
+    background: rgba(2, 132, 199, 0.1);
+    color: #0284c7;
+    border-color: rgba(2, 132, 199, 0.25);
+}
+
+[data-theme="light"] .focus-item h4 {
+    color: #0f172a;
+}
+
+[data-theme="light"] .focus-item p {
     color: #475569;
+}
+
+[data-theme="light"] .anime-info .anime-tag {
+    background: rgba(2, 132, 199, 0.08);
+    color: #0284c7;
+    border-color: rgba(2, 132, 199, 0.2);
 }
 
 [data-theme="light"] .category-header {
@@ -507,126 +523,7 @@ a {
     pointer-events: none;
 }
 
-.cursor-glow {
-    position: fixed;
-    width: 320px;
-    height: 320px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.3s ease;
-    opacity: 0;
-}
 
-body:hover .cursor-glow {
-    opacity: 0.8;
-}
-
-/* --- 4. HACKER BOOT PRELOADER --- */
-#preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #090d16;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 40px 60px;
-    font-family: 'Fira Code', monospace;
-    overflow: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-}
-
-#preloader::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.2),
-        rgba(0, 0, 0, 0.2) 1px,
-        transparent 1px,
-        transparent 2px
-    );
-    pointer-events: none;
-    z-index: 1;
-}
-
-#preloader::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
-    pointer-events: none;
-}
-
-.boot-line {
-    color: #a0aec0;
-    font-size: 0.85rem;
-    margin-bottom: 4px;
-    opacity: 0;
-    animation: fadeIn 0.15s forwards;
-    position: relative;
-    z-index: 2;
-}
-
-.boot-ascii {
-    opacity: 0;
-    animation: fadeIn 0.2s forwards;
-    position: relative;
-    z-index: 2;
-}
-
-.boot-ascii pre {
-    color: var(--cyan);
-    font-size: 0.6rem;
-    line-height: 1.1;
-    margin-bottom: 15px;
-    text-shadow: 0 0 10px var(--cyan-glow);
-}
-
-.boot-line .ok { color: var(--success); font-weight: bold; }
-.boot-line .warn { color: var(--warning); font-weight: bold; }
-.boot-line .info { color: var(--cyan); font-weight: 600; letter-spacing: 1px; }
-.boot-line .success { color: var(--success); font-weight: bold; text-shadow: 0 0 10px rgba(34, 197, 94, 0.4); }
-.boot-line .prompt { color: var(--accent); font-weight: 600; }
-
-.cursor-block {
-    display: inline-block;
-    width: 9px;
-    height: 1em;
-    background: var(--cyan);
-    animation: blink 0.9s infinite;
-    vertical-align: text-bottom;
-    margin-left: 4px;
-}
-
-.preloader-skip {
-    position: absolute;
-    top: 25px;
-    right: 30px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 6px 14px;
-    border-radius: var(--radius-sm);
-    font-size: 0.8rem;
-    cursor: pointer;
-    z-index: 10;
-    transition: var(--transition);
-}
-
-.preloader-skip:hover {
-    background: var(--accent);
-    color: #fff;
-    border-color: var(--accent);
-}
 
 /* --- 5. LAYOUT & CONTAINER --- */
 .wrapper {
@@ -1192,69 +1089,116 @@ nav.scrolled {
     transform: translateY(-2px);
 }
 
-/* Services Grid */
-.services-grid {
+/* About Focus Grid & Inspirations */
+.about-focus-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin: 12px 0;
 }
 
-.service-card {
-    background: var(--card);
+.focus-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px 18px;
+    background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 28px 22px;
-    text-align: center;
-    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
     transition: var(--transition);
 }
 
-.service-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px var(--accent-glow);
+.focus-item:hover {
+    border-color: rgba(34, 211, 238, 0.4);
+    background: rgba(34, 211, 238, 0.04);
+    transform: translateY(-2px);
 }
 
-.service-icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 18px;
-    background: rgba(124, 58, 237, 0.12);
-    border: 1px solid var(--accent);
-    border-radius: 50%;
+.focus-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(34, 211, 238, 0.1);
+    color: var(--cyan);
+    border: 1px solid rgba(34, 211, 238, 0.25);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.6rem;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+}
+
+.focus-item h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text);
+}
+
+.focus-item p {
+    font-size: 0.84rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Beyond Code / Inspirations Subcard inside About */
+.about-inspirations {
+    margin-top: 16px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.inspirations-header {
+    margin-bottom: 14px;
+}
+
+.inspirations-header h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+
+.inspirations-header h3 i {
     color: var(--accent);
 }
 
-.service-card h3 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-}
-
-.service-card p {
+.inspirations-sub {
+    font-size: 0.8rem;
     color: var(--muted);
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-bottom: 16px;
 }
 
-.service-tags {
+.anime-list-compact {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.anime-info {
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
 }
 
-.service-tags span {
-    padding: 4px 10px;
-    font-size: 0.75rem;
+.anime-info .anime-name {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.anime-info .anime-tag {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--cyan);
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    padding: 2px 8px;
     border-radius: var(--radius-full);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border);
-    color: var(--muted);
 }
 
 /* Tech Stack Grid */
@@ -1685,59 +1629,9 @@ nav.scrolled {
     will-change: height;
 }
 
-/* Traveling Cyber Train Capsule along Roadmap Spine */
-.roadmap-train-capsule {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    z-index: 10;
-    pointer-events: none;
-    opacity: 0;
-    transform: translate3d(-50%, 0, 0);
-    transition: opacity 0.3s ease;
-    will-change: transform, opacity;
-}
-
-.roadmap-train-capsule.visible {
-    opacity: 1;
-}
-
-.train-pod {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--cyan), var(--accent));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    font-size: 0.95rem;
-    box-shadow: 0 0 16px rgba(34, 211, 238, 0.8), 0 0 30px var(--accent-glow);
-    position: relative;
-    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
-}
-
-.train-pod.accelerating {
-    box-shadow: 0 0 28px var(--cyan), 0 0 45px var(--accent-glow);
-    transform: scale(1.22);
-}
-
-.train-pod.docked {
-    box-shadow: 0 0 20px var(--cyan), 0 0 35px var(--accent-glow);
-    transform: scale(1);
-}
-
-.ion-thruster {
-    position: absolute;
-    top: -6px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 5px;
-    height: 12px;
-    background: linear-gradient(to top, var(--cyan), transparent);
-    border-radius: 3px;
-    filter: blur(1px);
-    animation: thrustFlicker 0.12s infinite alternate;
+.roadmap-timeline.animate .roadmap-spine-fill {
+    height: 75%;
+    transition: height 1.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Milestone Item */
@@ -2451,9 +2345,12 @@ footer {
         margin-bottom: 35px;
     }
 
-    .services-grid {
+    .about-focus-grid {
         grid-template-columns: 1fr;
-        gap: 16px;
+    }
+
+    .anime-list-compact {
+        grid-template-columns: 1fr;
     }
 
     .techstack-grid {
@@ -2605,31 +2502,7 @@ footer {
         font-size: 1.5rem;
     }
 
-    .cursor-glow {
-        display: none !important;
-    }
 
-    #preloader {
-        padding: 24px 18px;
-    }
-
-    .boot-ascii pre {
-        font-size: clamp(0.26rem, 1.8vw, 0.45rem);
-        line-height: 1;
-        max-width: 100%;
-        overflow-x: auto;
-    }
-
-    .boot-line {
-        font-size: clamp(0.72rem, 2.5vw, 0.82rem);
-    }
-
-    .preloader-skip {
-        top: 15px;
-        right: 15px;
-        padding: 5px 12px;
-        font-size: 0.75rem;
-    }
 
     .scroll-top-btn {
         bottom: 20px;
@@ -2680,11 +2553,7 @@ footer {
         font-size: 0.75rem;
     }
 
-    .train-pod {
-        width: 28px;
-        height: 28px;
-        font-size: 0.82rem;
-    }
+
 
     .milestone-card {
         padding: 16px 14px;
@@ -2918,7 +2787,6 @@ footer {
     }
 
     .stat-card:hover,
-    .service-card:hover,
     .project-card:hover,
     .anime-item:hover {
         transform: none !important;

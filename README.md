@@ -17,10 +17,11 @@ Welcome to the source code of my personal engineering portfolio. This project sh
 
 ## 🛠️ Architecture & Tech Stack
 - **Core Technologies**: Semantic HTML5, Vanilla CSS3 (Custom Design System), Modern JavaScript (ES6+).
+- **Instant Load & Zero Friction**: Clean page initialization with zero blocking loaders or delay.
 - **Neural Network Canvas**: Interactive particle network background with mouse tethering, throttled via the **Page Visibility API** for optimal battery efficiency.
-- **Hermite Spline Roadmap**: Smooth $C^1$ cubic Hermite spline driving an animated cyber train capsule across academic milestones with sub-pixel docking and interactive station gliding.
-- **Synthesized Web Audio FX**: Built-in procedural sound effects generated in real-time via the browser's `AudioContext` (tactile clicks, station pings, docking chimes, theme chords) with zero external audio assets.
-- **Modern Bento Grid Projects**: Interactive showcase highlighting machine learning pipelines, automation bots, computer vision models, and accuracy metrics.
+- **Glowing Laser Spine Roadmap**: Smooth vertical timeline tracking academic milestones (Class 10, Class 12, Current 2nd Year BCA, Next Horizon) with illuminated status nodes.
+- **Modern Bento Grid Projects**: Interactive showcase highlighting machine learning pipelines, automation bots, computer vision models, accuracy metrics, and direct GitHub links.
+- **Dual Theme System**: High-contrast, WCAG AA-compliant Dark Mode (deep zinc/slate) and Light Mode (crisp white cards with layered shadows).
 - **Smart Navigation**: Viewport-centered smooth scrolling and scroll-spy navigation.
 - **SEO & Performance**: OpenGraph, Twitter Cards, canonical tags, `sitemap.xml`, and `robots.txt` configured for search indexing.
 
@@ -32,10 +33,11 @@ My-Portfolio/
 │   └── style.css               # Production design tokens, bento grids, responsive breakpoints
 ├── js/
 │   ├── config.js               # Application configuration (endpoints, site metadata)
-│   └── script.js               # Canvas physics, Web Audio engine, spline timeline, UI logic
+│   └── script.js               # Canvas physics, timeline animations, UI logic
 ├── images/
 │   ├── amit-profile.jpg        # Profile image
-│   └── favicon.png             # Site favicon
+│   ├── favicon.png             # Site favicon
+│   └── anime/                  # Anime poster assets
 ├── Amit Kumar Garai - Resume.pdf # Downloadable resume
 ├── CNAME                       # Custom domain routing (amitcodes.in)
 ├── robots.txt                  # Search crawler directives
