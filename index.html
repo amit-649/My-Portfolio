@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css?v=3.0" />
+    <link rel="stylesheet" href="css/style.css?v=3.1" />
 </head>
 
 <body>
@@ -106,16 +106,38 @@
                         I build intelligent systems and practical machine learning solutions using Python. Currently pursuing my BCA while designing predictive models and automation tools.
                     </p>
 
-                    <div class="terminal-shell" aria-label="Terminal Shell">
+                    <div class="terminal-shell" aria-label="Interactive Developer Terminal">
                         <div class="terminal-header">
-                            <span class="terminal-dot red"></span>
-                            <span class="terminal-dot yellow"></span>
-                            <span class="terminal-dot green"></span>
-                            <span class="terminal-title"><i class="fas fa-terminal"></i> bash — 80x24</span>
+                            <div class="terminal-controls">
+                                <span class="terminal-dot red" title="Close"></span>
+                                <span class="terminal-dot yellow" title="Minimize"></span>
+                                <span class="terminal-dot green" title="Maximize"></span>
+                            </div>
+                            <div class="terminal-title">
+                                <i class="fas fa-terminal"></i>
+                                <span>amit@portfolio: ~/ml-lab</span>
+                                <span class="terminal-git-branch"><i class="fas fa-code-branch"></i> main</span>
+                            </div>
+                            <div class="terminal-status-badge">
+                                <span class="term-status-dot"></span>
+                                <span>zsh 5.9</span>
+                            </div>
                         </div>
-                        <div class="typing-area" aria-live="polite">
-                            <span class="prompt-prefix">amit@portfolio:~$</span>
-                            <span id="typing"></span><span class="cursor"></span>
+                        <div class="terminal-body" id="terminalBody">
+                            <div class="terminal-history" id="terminalHistory"></div>
+                            <div class="terminal-prompt-line">
+                                <span class="prompt-user">amit@portfolio</span><span class="prompt-sep">:</span><span class="prompt-path">~/ml-lab</span><span class="prompt-branch">(main)</span><span class="prompt-dollar">$</span>
+                                <span class="terminal-command-text" id="terminalCommand"></span><span class="terminal-cursor">█</span>
+                            </div>
+                        </div>
+                        <div class="terminal-footer">
+                            <span class="terminal-quick-label"><i class="fas fa-bolt"></i> Run:</span>
+                            <div class="terminal-quick-chips">
+                                <button type="button" class="term-chip" data-cmd="status">python status.py</button>
+                                <button type="button" class="term-chip" data-cmd="whoami">whoami</button>
+                                <button type="button" class="term-chip" data-cmd="skills">cat skills.json</button>
+                                <button type="button" class="term-chip" data-cmd="clear">clear</button>
+                            </div>
                         </div>
                     </div>
 
@@ -723,7 +745,7 @@
 
     <!-- Application Logic -->
     <script src="js/config.js?v=2.2"></script>
-    <script src="js/script.js?v=2.2"></script>
+    <script src="js/script.js?v=3.1"></script>
 </body>
 
 </html>

@@ -143,7 +143,7 @@
             }
 
             // Tactile click micro-sounds for interactive elements
-            document.querySelectorAll('.btn, .nav-links a, .stat-card, .anime-item, .project-card, .scroll-top-btn').forEach(el => {
+            document.querySelectorAll('.btn, .nav-links a, .stat-card, .anime-item, .project-card, .scroll-top-btn, .term-chip').forEach(el => {
                 el.addEventListener('click', () => this.playClick());
             });
         },
@@ -700,41 +700,180 @@
         }, frameRate);
     }
 
-    /* --- 7. HERO TYPING LOOP --- */
+    /* --- 7. REFINED INTERACTIVE DEVELOPER TERMINAL --- */
     function initHeroTyping() {
-        const typeEl = document.getElementById('typing');
-        if (!typeEl) return;
+        const cmdEl = document.getElementById('terminalCommand');
+        const historyEl = document.getElementById('terminalHistory');
+        const bodyEl = document.getElementById('terminalBody');
+        const chipBtns = document.querySelectorAll('.term-chip');
+        if (!cmdEl || !historyEl) return;
 
-        const phrases = [
-            'Learning Machine Learning...',
-            'Building Predictive AI Models...',
-            'Writing Python & Automation Tools...',
-            'Diving Deep into Data Science...'
+        const scenarios = [
+            {
+                cmd: 'python status.py',
+                outputs: [
+                    { text: '✔ Runtime: Python 3.12.2 | Scikit-Learn | Pandas | NumPy', type: 'ok' },
+                    { text: '✔ Core Model: Random Forest Regressor (Acc: 98.2%)', type: 'info' },
+                    { text: '➜ Focus: Scalable ML Pipelines & Intelligent Systems', type: 'accent' }
+                ]
+            },
+            {
+                cmd: 'whoami',
+                outputs: [
+                    { text: 'Amit Kumar Garai — 2nd Year BCA Student', type: 'text' },
+                    { text: 'Aspiring Machine Learning Engineer & Python Developer', type: 'info' },
+                    { text: '⚡ Actively seeking Summer / Fall ML Internships', type: 'ok' }
+                ]
+            },
+            {
+                cmd: 'cat skills.json',
+                outputs: [
+                    { text: '{ "ml": ["Scikit-Learn", "NumPy", "Pandas", "NLP"],', type: 'text' },
+                    { text: '  "systems": ["Python", "C++", "Linux CLI", "Git"],', type: 'text' },
+                    { text: '  "automation": ["Playwright", "REST APIs"] }', type: 'accent' }
+                ]
+            },
+            {
+                cmd: 'python -m model.evaluate --task nlp',
+                outputs: [
+                    { text: 'ℹ SMS Spam Filter: Multinomial Naive Bayes', type: 'info' },
+                    { text: '✔ Tokenized 5,572 messages (TF-IDF vectorizer)', type: 'ok' },
+                    { text: '✔ Precision: 96.8% | Recall: 94.2% | Latency: 0.8ms', type: 'ok' }
+                ]
+            }
         ];
-        let pIndex = 0, cIndex = 0, isDeleting = false;
 
-        function typeLoop() {
-            const current = phrases[pIndex % phrases.length];
-            typeEl.textContent = current.substring(0, cIndex);
+        let sIndex = 0;
+        let isTyping = false;
+        let isPaused = false;
+        let autoTimeout = null;
 
-            if (isDeleting) {
-                cIndex--;
-            } else {
-                cIndex++;
+        function addHistory(cmd, outputs) {
+            // Keep max 2 history entries to avoid runaway scrolling
+            while (historyEl.children.length >= 2) {
+                historyEl.removeChild(historyEl.firstElementChild);
             }
 
-            if (!isDeleting && cIndex === current.length + 1) {
-                isDeleting = true;
-                setTimeout(typeLoop, 1400);
-            } else if (isDeleting && cIndex === 0) {
-                isDeleting = false;
-                pIndex++;
-                setTimeout(typeLoop, 250);
-            } else {
-                setTimeout(typeLoop, isDeleting ? 30 : 65);
+            const item = document.createElement('div');
+            item.className = 'term-hist-item';
+
+            const promptLine = document.createElement('div');
+            promptLine.className = 'term-hist-prompt';
+            promptLine.innerHTML = `<span class="prompt-user">amit@portfolio</span><span class="prompt-sep">:</span><span class="prompt-path">~/ml-lab</span><span class="prompt-dollar">$</span> <span class="terminal-command-text">${escapeHtml(cmd)}</span>`;
+            item.appendChild(promptLine);
+
+            const outBlock = document.createElement('div');
+            outBlock.className = 'term-output-block';
+
+            outputs.forEach((out, idx) => {
+                const line = document.createElement('div');
+                line.className = `term-out-line ${out.type || 'text'}`;
+                line.textContent = out.text;
+                line.style.animationDelay = `${idx * 70}ms`;
+                outBlock.appendChild(line);
+            });
+
+            item.appendChild(outBlock);
+            historyEl.appendChild(item);
+
+            if (bodyEl) {
+                bodyEl.scrollTop = bodyEl.scrollHeight;
             }
         }
-        typeLoop();
+
+        function escapeHtml(str) {
+            return str.replace(/[&<>"']/g, (m) => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            })[m]);
+        }
+
+        function typeCommand(cmd, onComplete) {
+            isTyping = true;
+            cmdEl.textContent = '';
+            let i = 0;
+
+            function step() {
+                if (!isTyping) return;
+                cmdEl.textContent = cmd.slice(0, i + 1);
+                i++;
+                if (i < cmd.length) {
+                    autoTimeout = setTimeout(step, 40 + Math.random() * 30);
+                } else {
+                    isTyping = false;
+                    autoTimeout = setTimeout(onComplete, 220);
+                }
+            }
+            step();
+        }
+
+        function runScenario(scenario, delayAfter) {
+            clearTimeout(autoTimeout);
+            typeCommand(scenario.cmd, () => {
+                cmdEl.textContent = '';
+                addHistory(scenario.cmd, scenario.outputs);
+                autoTimeout = setTimeout(() => {
+                    if (!isPaused) {
+                        sIndex = (sIndex + 1) % scenarios.length;
+                        runScenario(scenarios[sIndex], 3400);
+                    }
+                }, delayAfter || 3200);
+            });
+        }
+
+        function startAutoLoop() {
+            isPaused = false;
+            runScenario(scenarios[sIndex], 3400);
+        }
+
+        // Chip button interactive execution
+        chipBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const cmdKey = btn.getAttribute('data-cmd');
+
+                if (cmdKey === 'clear') {
+                    clearTimeout(autoTimeout);
+                    isTyping = false;
+                    cmdEl.textContent = '';
+                    historyEl.innerHTML = '';
+                    isPaused = true;
+                    autoTimeout = setTimeout(() => {
+                        startAutoLoop();
+                    }, 4000);
+                    return;
+                }
+
+                let targetScenario = scenarios.find(s => s.cmd.includes(cmdKey) || cmdKey.includes(s.cmd));
+                if (!targetScenario) {
+                    targetScenario = {
+                        cmd: btn.textContent.trim(),
+                        outputs: [
+                            { text: `Executing ${btn.textContent.trim()}...`, type: 'info' },
+                            { text: '✔ Execution completed successfully.', type: 'ok' }
+                        ]
+                    };
+                }
+
+                clearTimeout(autoTimeout);
+                isTyping = false;
+                isPaused = true;
+
+                typeCommand(targetScenario.cmd, () => {
+                    cmdEl.textContent = '';
+                    addHistory(targetScenario.cmd, targetScenario.outputs);
+                    // Pause for 7 seconds so user can inspect output before resuming
+                    autoTimeout = setTimeout(() => {
+                        startAutoLoop();
+                    }, 7000);
+                });
+            });
+        });
+
+        // Kick off loop
+        setTimeout(startAutoLoop, 800);
     }
 
     /* --- 8. 3D TILT EFFECT --- */
