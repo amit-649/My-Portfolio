@@ -26,7 +26,7 @@
         { type: 'ok', text: 'Mounting /dev/portfolio' },
         { type: 'ok', text: 'Starting machine_learning.service' },
         { type: 'ok', text: 'Connecting to github.api.v4' },
-        { type: 'ok', text: 'Initializing gemini-ai-core...' },
+        { type: 'ok', text: 'Initializing ml_models.engine...' },
         { type: 'warn', text: 'Calibrating sensory models...' },
         { type: 'ok', text: 'All neural pathways operational' },
         { type: 'blank' },
@@ -119,6 +119,7 @@
         initContactForm();
         initScrollSpy();
         initScrollTop();
+        initAnimeInteractions();
     }
 
     /* --- 3. SOUND EFFECTS ENGINE (WEB AUDIO API) --- */
@@ -142,7 +143,7 @@
             }
 
             // Tactile click micro-sounds for interactive elements
-            document.querySelectorAll('.btn, .nav-links a, .stat-card, .anime-item, .chat-toggle-btn').forEach(el => {
+            document.querySelectorAll('.btn, .nav-links a, .stat-card, .anime-item, .project-card, .scroll-top-btn').forEach(el => {
                 el.addEventListener('click', () => this.playClick());
             });
         },
@@ -455,7 +456,8 @@
                 }
 
                 const spineOffsetTop = spine.offsetTop;
-                const trainPodHeight = 32;
+                const trainPod = qualTimeline.querySelector('.train-pod');
+                const trainPodHeight = trainPod ? trainPod.offsetHeight : 32;
                 const markerCenter = markerOffsetTop + (marker.offsetHeight / 2);
                 return markerCenter - spineOffsetTop - (trainPodHeight / 2);
             }
@@ -763,9 +765,17 @@
 
         if (!menuToggle || !navLinks) return;
 
+        function updateToggleIcon(isActive) {
+            menuToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+            const icon = menuToggle.querySelector('i');
+            if (icon) {
+                icon.className = isActive ? 'fas fa-xmark' : 'fas fa-bars';
+            }
+        }
+
         function toggleMenu() {
             const isActive = navLinks.classList.toggle('active');
-            menuToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+            updateToggleIcon(isActive);
         }
 
         menuToggle.addEventListener('click', toggleMenu);
@@ -773,7 +783,7 @@
         navLinks.querySelectorAll('a').forEach((link) => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
+                updateToggleIcon(false);
             });
         });
 
@@ -782,7 +792,7 @@
                 !e.target.closest('#navLinks') &&
                 !e.target.closest('#menuToggle')) {
                 navLinks.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
+                updateToggleIcon(false);
             }
         });
     }
@@ -838,7 +848,11 @@
                     const menuToggle = document.getElementById('menuToggle');
                     if (navLinks && navLinks.classList.contains('active')) {
                         navLinks.classList.remove('active');
-                        if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+                        if (menuToggle) {
+                            menuToggle.setAttribute('aria-expanded', 'false');
+                            const icon = menuToggle.querySelector('i');
+                            if (icon) icon.className = 'fas fa-bars';
+                        }
                     }
 
                     if (history.pushState) {
@@ -855,7 +869,17 @@
 
         initSmoothCenterNavigation();
 
+        const nav = document.querySelector('nav');
+
         window.addEventListener('scroll', () => {
+            if (nav) {
+                if (window.scrollY > 30) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+
             let currentId = '';
             const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
             const viewportCenter = scrollPos + window.innerHeight / 2;
@@ -889,11 +913,11 @@
                 scrollTopBtn.style.display = 'none';
             }
         }, { passive: true });
-    }
 
-    window.scrollToTop = function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 
     /* --- 12. CONTACT FORM HANDLER --- */
     function initContactForm() {
@@ -965,11 +989,17 @@
         }
     }
 
-    /* --- 13. ANIME SEARCH UTILITY --- */
-    window.searchAnime = function (name) {
-        if (!name) return;
-        window.open('https://www.google.com/search?q=' + encodeURIComponent(name + ' anime'), '_blank', 'noopener,noreferrer');
-    };
+    /* --- 13. ANIME SEARCH INTERACTION --- */
+    function initAnimeInteractions() {
+        document.querySelectorAll('.anime-item[data-anime]').forEach(item => {
+            item.addEventListener('click', () => {
+                const animeName = item.getAttribute('data-anime');
+                if (animeName) {
+                    window.open('https://www.google.com/search?q=' + encodeURIComponent(animeName + ' anime'), '_blank', 'noopener,noreferrer');
+                }
+            });
+        });
+    }
 
     /* --- 14. KICK OFF SCRIPT ON LOAD --- */
     window.addEventListener('load', runPreloader);
