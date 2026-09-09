@@ -278,24 +278,65 @@
     background: rgba(148, 163, 184, 0.25);
 }
 
+[data-theme="light"] .milestone-card {
+    background: #ffffff !important;
+    border: 1px solid rgba(226, 232, 240, 0.95) !important;
+    box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03) !important;
+}
+
+[data-theme="light"] .milestone-card:hover {
+    border-color: rgba(2, 132, 199, 0.4) !important;
+    box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.09), 0 4px 12px -2px rgba(15, 23, 42, 0.04) !important;
+}
+
+[data-theme="light"] .milestone-title {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .milestone-text {
+    color: #475569 !important;
+}
+
+[data-theme="light"] .milestone-year {
+    color: #475569 !important;
+}
+
 [data-theme="light"] .milestone-score {
-    background: rgba(15, 23, 42, 0.05);
-    border-color: rgba(148, 163, 184, 0.3);
-    color: #1e293b;
+    background: rgba(15, 23, 42, 0.04) !important;
+    border-color: rgba(203, 213, 225, 0.8) !important;
+    color: #1e293b !important;
+}
+
+[data-theme="light"] .milestone-status-pill.completed {
+    background: rgba(22, 163, 74, 0.1) !important;
+    color: #15803d !important;
+    border: 1px solid rgba(22, 163, 74, 0.3) !important;
+}
+
+[data-theme="light"] .milestone-tags span {
+    background: rgba(241, 245, 249, 0.9) !important;
+    border: 1px solid rgba(226, 232, 240, 0.95) !important;
+    color: #475569 !important;
+}
+
+[data-theme="light"] .featured-tag {
+    background: rgba(2, 132, 199, 0.08) !important;
+    border-color: rgba(2, 132, 199, 0.25) !important;
+    color: #0284c7 !important;
 }
 
 [data-theme="light"] .active-year {
-    color: #0284c7;
+    color: #0284c7 !important;
 }
 
 [data-theme="light"] .future-year {
-    color: #6d28d9;
+    color: #6d28d9 !important;
 }
 
 [data-theme="light"] .future-pill {
-    background: rgba(109, 40, 217, 0.08);
-    color: #6d28d9;
-    border-color: rgba(109, 40, 217, 0.35);
+    background: rgba(109, 40, 217, 0.08) !important;
+    color: #6d28d9 !important;
+    border-color: rgba(109, 40, 217, 0.35) !important;
 }
 
 [data-theme="light"] .future-dot {
@@ -306,6 +347,14 @@
 [data-theme="light"] .future-card {
     background: rgba(109, 40, 217, 0.02) !important;
     border-color: rgba(109, 40, 217, 0.3) !important;
+}
+
+[data-theme="light"] .future-card .milestone-title {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .future-card .milestone-text {
+    color: #475569 !important;
 }
 
 [data-theme="light"] .milestone-status-pill.active-pill {
@@ -329,8 +378,15 @@
     color: #0f172a;
 }
 
-[data-theme="light"] .anime-thumb {
-    border-color: rgba(148, 163, 184, 0.3);
+[data-theme="light"] .anime-thumb-wrapper {
+    border-color: rgba(203, 213, 225, 0.8);
+    background: rgba(241, 245, 249, 0.8);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+}
+
+[data-theme="light"] .anime-item:hover .anime-thumb-wrapper {
+    border-color: #0284c7;
+    box-shadow: 0 0 12px rgba(2, 132, 199, 0.25);
 }
 
 [data-theme="light"] .contact-item i {
@@ -1758,7 +1814,7 @@ nav.scrolled {
 
 /* Milestone Bento Card */
 .milestone-card {
-    background: rgba(15, 23, 42, 0.65);
+    background: var(--card);
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 22px 26px;
@@ -1766,11 +1822,21 @@ nav.scrolled {
     transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
+[data-theme="light"] .milestone-card {
+    background: #ffffff !important;
+    border: 1px solid rgba(226, 232, 240, 0.95) !important;
+    box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03) !important;
+}
 
 .milestone-card:hover {
     border-color: rgba(34, 211, 238, 0.4);
     transform: translateY(-2px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] .milestone-card:hover {
+    border-color: rgba(2, 132, 199, 0.4) !important;
+    box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.09), 0 4px 12px -2px rgba(15, 23, 42, 0.04) !important;
 }
 
 .active-card {
@@ -2021,22 +2087,49 @@ nav.scrolled {
     gap: 14px;
 }
 
-.anime-thumb {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    object-fit: cover;
-    object-position: center top;
+.anime-thumb-wrapper {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(124, 58, 237, 0.1);
     border: 1.5px solid var(--border);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
     transition: var(--transition);
-    flex-shrink: 0;
 }
 
-.anime-item:hover .anime-thumb {
+.anime-item:hover .anime-thumb-wrapper {
     border-color: var(--cyan);
-    transform: scale(1.1);
-    box-shadow: 0 0 12px var(--cyan-glow);
+    transform: scale(1.08);
+    box-shadow: 0 0 14px var(--cyan-glow);
+}
+
+.anime-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: var(--transition);
+}
+
+.anime-fallback-icon {
+    display: none;
+    font-size: 1.1rem;
+    color: var(--accent);
+}
+
+.anime-thumb-wrapper.no-img .anime-thumb {
+    display: none;
+}
+
+.anime-thumb-wrapper.no-img .anime-fallback-icon {
+    display: flex;
 }
 
 .anime-name {
