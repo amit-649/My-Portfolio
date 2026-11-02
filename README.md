@@ -9,7 +9,7 @@
 ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝   ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝
 ```
 
-Welcome to the official source code of my personal engineering portfolio. Designed with inspiration from the award-winning **igloo.inc** aesthetic, featuring procedural 3D crystalline WebGL graphics, frosted glassmorphism, kinetic typography, and a live client-side machine learning simulator.
+Welcome to the official source code of my personal engineering portfolio. Designed with inspiration from the award-winning **igloo.inc** aesthetic, featuring procedural 3D crystalline WebGL graphics, frosted glassmorphism, kinetic typography, and a live client-side machine learning simulator. This site documents my journey as a **2nd-year BCA student** actively learning and building a career in **Artificial Intelligence, Machine Learning, and Python Automation**.
 
 ## 🚀 Live Transmission
 - **Custom Domain**: [amitcodes.in](https://amitcodes.in/)
