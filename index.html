@@ -6,158 +6,257 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Primary Meta Tags -->
-    <title>Amit Kumar Garai | Future ML Engineer & Python Developer</title>
-    <meta name="title" content="Amit Kumar Garai | Future ML Engineer & Python Developer" />
-    <meta name="description" content="Portfolio of Amit Kumar Garai - Aspiring Machine Learning Engineer, Python Developer, and AI Enthusiast building intelligent systems." />
+    <title>Amit Kumar Garai | ML Engineer & Python Developer</title>
+    <meta name="title" content="Amit Kumar Garai | ML Engineer & Python Developer" />
+    <meta name="description" content="Portfolio of Amit Kumar Garai — Aspiring Machine Learning Engineer, Python Developer, and Automation Architect building high-precision models and intelligent systems." />
     <meta name="author" content="Amit Kumar Garai" />
-    <meta name="keywords" content="Amit Kumar Garai, Machine Learning, Python, Scikit-Learn, AI Developer, BCA, Portfolio, Data Science" />
+    <meta name="keywords" content="Amit Kumar Garai, Machine Learning, Python, Scikit-Learn, AI Developer, Next.js, BCA, Playwright, Data Science, Three.js Portfolio" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://amitcodes.in/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://amitcodes.in/" />
-    <meta property="og:title" content="Amit Kumar Garai | Future ML Engineer & Python Developer" />
-    <meta property="og:description" content="Aspiring ML Engineer & Python Developer building intelligent models and automation solutions." />
+    <meta property="og:title" content="Amit Kumar Garai | ML Engineer & Python Developer" />
+    <meta property="og:description" content="Aspiring ML Engineer & Python Developer building intelligent models, WebAssembly systems, and headless automations." />
     <meta property="og:image" content="https://github.com/amit-649.png" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://amitcodes.in/" />
-    <meta name="twitter:title" content="Amit Kumar Garai | Future ML Engineer & Python Developer" />
-    <meta name="twitter:description" content="Aspiring ML Engineer & Python Developer building intelligent models and automation solutions." />
+    <meta name="twitter:title" content="Amit Kumar Garai | ML Engineer & Python Developer" />
+    <meta name="twitter:description" content="Aspiring ML Engineer & Python Developer building intelligent models, WebAssembly systems, and headless automations." />
     <meta name="twitter:image" content="https://github.com/amit-649.png" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/favicon.png?v=2.0" />
+    <link rel="icon" type="image/png" href="images/favicon.png?v=3.0" />
 
-    <!-- Preload Critical Google Fonts -->
+    <!-- Google Fonts: Space Grotesk + Inter + JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,600;0,800;1,600&family=Fira+Code:wght@400;500;600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <!-- Icons -->
+    <!-- FontAwesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
+    <!-- Three.js for 3D Crystalline Graphics -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css?v=3.3" />
+    <link rel="stylesheet" href="css/style.css?v=4.0" />
 </head>
 
 <body>
 
-    <!-- NEURAL NETWORK BACKGROUND CANVAS -->
-    <canvas id="neuro-canvas" aria-hidden="true"></canvas>
+    <!-- AMBIENT FROST NOISE & CURSOR SPOTLIGHT -->
+    <div class="ambient-glow" id="ambientGlow" aria-hidden="true"></div>
+    <div class="frost-grid" aria-hidden="true"></div>
 
     <div class="wrapper">
 
-        <!-- HEADER NAVIGATION -->
-        <nav aria-label="Main Navigation">
-            <a href="#home" class="nav-brand" aria-label="Amit Garai Home">
-                <span class="nav-dot"></span> AMIT.ML
-            </a>
-            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="nav-links" id="navLinks">
-                <a href="#about">About</a>
-                <a href="#techstack">Skills</a>
-                <a href="#projects">Projects</a>
-                <a href="#qualifications">Journey</a>
-                <a href="#contact">Contact</a>
+        <!-- FLOATING IGLOO-INSPIRED NAVIGATION -->
+        <nav id="navbar" aria-label="Main Navigation">
+            <div class="nav-container">
+                <a href="#home" class="nav-brand" aria-label="Amit Garai Home">
+                    <span class="brand-crystal"></span>
+                    <span class="brand-text">AMIT<span class="brand-dot">.</span>AI</span>
+                    <span class="brand-badge">[SYS:ONLINE]</span>
+                </a>
+
+                <div class="nav-links" id="navLinks">
+                    <a href="#about" class="nav-item"><span class="nav-index">01</span> About</a>
+                    <a href="#techstack" class="nav-item"><span class="nav-index">02</span> Skills</a>
+                    <a href="#playground" class="nav-item"><span class="nav-index">03</span> ML Demo</a>
+                    <a href="#projects" class="nav-item"><span class="nav-index">04</span> Projects</a>
+                    <a href="#qualifications" class="nav-item"><span class="nav-index">05</span> Journey</a>
+                    <a href="#contact" class="nav-item"><span class="nav-index">06</span> Transmit</a>
+                </div>
+
                 <div class="nav-controls">
-                    <button id="cmdPaletteTrigger" class="cmd-trigger" aria-label="Open Command Palette (Ctrl+K)" title="Command Palette (Ctrl + K)">
+                    <!-- Audio FX Toggle -->
+                    <button id="sfxToggle" class="control-btn" aria-label="Toggle Sound Effects" title="Toggle UI Sound FX">
+                        <i class="fas fa-volume-xmark" id="sfxIcon"></i>
+                    </button>
+
+                    <!-- Command Palette (Ctrl+K) -->
+                    <button id="cmdPaletteTrigger" class="control-btn cmd-trigger" aria-label="Open Command Palette (Ctrl+K)" title="Command Palette (Ctrl + K)">
                         <i class="fas fa-terminal"></i>
                         <span class="cmd-shortcut-badge">⌘K</span>
                     </button>
-                    <button id="themeToggle" class="theme-toggle" aria-label="Toggle Dark/Light Mode" title="Toggle theme">
+
+                    <!-- Theme Toggle -->
+                    <button id="themeToggle" class="control-btn theme-toggle" aria-label="Toggle Dark/Light Mode" title="Toggle theme">
                         <i class="fas fa-sun"></i>
+                    </button>
+
+                    <!-- Mobile Menu Hamburger -->
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </button>
                 </div>
             </div>
         </nav>
 
         <main>
-            <!-- HERO SECTION -->
+            <!-- HERO SECTION: KINETIC TYPOGRAPHY & 3D CRYSTAL CORE -->
             <header id="home" class="hero-section reveal">
-                <div class="hero-content">
-                    <!-- Status Badges -->
-                    <div class="status-badges">
-                        <span class="status-badge available"><i class="fas fa-circle"></i> Open to Internships</span>
-                        <span class="status-badge"><i class="fas fa-map-marker-alt"></i> Based in India</span>
-                    </div>
+                <div class="hero-grid">
+                    <!-- Left Column: Typography, Badges & Actions -->
+                    <div class="hero-content">
+                        <!-- Crystalline Telemetry Coordinates -->
+                        <div class="telemetry-bar">
+                            <span class="telemetry-chip live">
+                                <span class="pulse-beacon"></span> CORE // ACTIVE
+                            </span>
+                            <span class="telemetry-chip">
+                                <i class="fas fa-location-crosshairs"></i> 22.5726° N, 88.3639° E
+                            </span>
+                            <span class="telemetry-chip">
+                                <i class="fas fa-clock"></i> <span id="localTimeStr">IST</span>
+                            </span>
+                        </div>
 
-                    <h1 class="hero-title">Hi, I'm <span class="gradient-text">Amit</span></h1>
-                    <h2 class="hero-subtitle">Aspiring ML Engineer & Python Developer</h2>
+                        <!-- Kinetic Scramble Heading -->
+                        <h1 class="hero-title">
+                            <span class="hero-salutation">Hello, I'm</span>
+                            <span class="kinetic-name decrypt-text" data-original="Amit Kumar Garai">Amit Kumar Garai</span>
+                        </h1>
 
-                    <!-- Mobile Profile Picture -->
-                    <div class="mobile-profile">
-                        <div class="profile-frame">
-                            <img src="images/amit-profile.jpg" alt="Amit Kumar Garai - Future ML Engineer" class="profile-image" loading="eager" />
-                            <div class="profile-glow"></div>
+                        <h2 class="hero-role">
+                            <span class="role-prefix">Specialized in</span>
+                            <span class="gradient-text">Machine Learning &amp; Automation</span>
+                        </h2>
+
+                        <p class="hero-description">
+                            Engineering intelligent models, predictive pipelines, and high-performance automation architectures. Currently advancing through 2nd Year BCA while architecting statistical classifiers and zero-touch headless bots.
+                        </p>
+
+                        <!-- Multi-Tab Crystalline Terminal HUD -->
+                        <div class="terminal-shell" aria-label="Interactive Terminal Simulation">
+                            <div class="terminal-header">
+                                <div class="terminal-dots">
+                                    <span class="dot red"></span>
+                                    <span class="dot yellow"></span>
+                                    <span class="dot green"></span>
+                                </div>
+                                <div class="terminal-tabs">
+                                    <button type="button" class="term-tab active" data-tab="bash">bash</button>
+                                    <button type="button" class="term-tab" data-tab="model">predict.py</button>
+                                    <button type="button" class="term-tab" data-tab="sys">system.sh</button>
+                                </div>
+                                <span class="terminal-status"><i class="fas fa-circle-check"></i> 60 FPS</span>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="tab-pane active" id="pane-bash">
+                                    <div class="typing-line">
+                                        <span class="prompt-prefix">amit@igloo-core:~$</span>
+                                        <span class="typed-text" id="typing"></span><span class="cursor"></span>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pane-model">
+                                    <pre class="code-snippet"><code><span class="c-keyword">import</span> numpy <span class="c-keyword">as</span> np
+<span class="c-keyword">from</span> sklearn.pipeline <span class="c-keyword">import</span> make_pipeline
+
+model = make_pipeline(StandardScaler(), SVC(probability=<span class="c-val">True</span>))
+model.fit(X_train, y_train)
+<span class="c-comment"># Inference latency: 1.4ms | Accuracy: 98.2%</span></code></pre>
+                                </div>
+                                <div class="tab-pane" id="pane-sys">
+                                    <pre class="code-snippet"><code><span class="c-comment"># Telemetry Diagnostics</span>
+ARCH: x86_64 // KERNEL: Python 3.12 + Node.js
+STACK: Scikit-Learn | Playwright | Next.js | WASM
+STATUS: Ready for SWE &amp; ML Internships (2026)</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Button Group -->
+                        <div class="btn-group">
+                            <a href="#projects" class="btn btn-primary magnetic-btn">
+                                <i class="fas fa-shapes"></i> Explore Works
+                            </a>
+                            <button type="button" class="btn btn-secondary magnetic-btn" id="resumePreviewBtn">
+                                <i class="fas fa-file-lines"></i> Inspect CV
+                            </button>
+                            <a href="https://wa.me/qr/EEASQ2MOEW73P1" target="_blank" rel="noopener noreferrer" class="btn btn-glass magnetic-btn">
+                                <i class="fab fa-whatsapp"></i> Transmit
+                            </a>
+                        </div>
+
+                        <!-- Social Coordinate Matrix -->
+                        <div class="social-telemetry">
+                            <span class="telemetry-label">CHANNELS:</span>
+                            <div class="social-links">
+                                <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" title="GitHub (@amit-649)"><i class="fab fa-github"></i></a>
+                                <a href="https://www.linkedin.com/in/amit-garai-10a804267" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" title="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="https://www.instagram.com/itssz.amit" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile" title="Instagram Profile"><i class="fab fa-instagram"></i></a>
+                                <a href="https://www.reddit.com/user/Amit154" target="_blank" rel="noopener noreferrer" aria-label="Reddit Profile" title="Reddit Profile"><i class="fab fa-reddit-alien"></i></a>
+                                <a href="mailto:garaiamit64@gmail.com" aria-label="Send Direct Email" title="Direct Email"><i class="fas fa-envelope"></i></a>
+                            </div>
                         </div>
                     </div>
 
-                    <p class="hero-description">
-                        I build intelligent systems and practical machine learning solutions using Python. Currently pursuing my BCA while designing predictive models and automation tools.
-                    </p>
+                    <!-- Right Column: Interactive 3D Crystalline Canvas + Profile Holo-Frame -->
+                    <div class="hero-visual">
+                        <div class="crystal-viewport-wrapper">
+                            <!-- Three.js 3D WebGL Canvas -->
+                            <canvas id="hero-crystal-canvas" aria-label="Interactive 3D Crystalline Core"></canvas>
+                            
+                            <!-- Interactive Drag/Hover Overlay Pill -->
+                            <div class="crystal-hint">
+                                <span class="crystal-hint-dot"></span>
+                                <span class="crystal-hint-text">3D WebGL Core • Click &amp; Drag to Rotate</span>
+                            </div>
 
-                    <div class="terminal-shell" aria-label="Terminal Shell">
-                        <div class="terminal-header">
-                            <span class="terminal-dot red"></span>
-                            <span class="terminal-dot yellow"></span>
-                            <span class="terminal-dot green"></span>
-                            <span class="terminal-title">bash — 80×24</span>
+                            <!-- Embedded Glass Avatar Overlay -->
+                            <div class="avatar-holo-plate tilt-card" data-tilt>
+                                <div class="avatar-ring">
+                                    <img src="images/amit-profile.jpg" alt="Amit Kumar Garai" class="avatar-img" loading="eager" />
+                                    <div class="avatar-specular"></div>
+                                </div>
+                                <div class="avatar-caption">
+                                    <span class="avatar-name">AMIT K. GARAI</span>
+                                    <span class="avatar-role">BCA '29 // ML SPECIALIST</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="typing-area" aria-live="polite">
-                            <span class="prompt-prefix">amit@portfolio:~$</span>
-                            <span class="typed-text" id="typing"></span><span class="cursor"></span>
-                        </div>
-                    </div>
-
-                    <div class="btn-group">
-                        <a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Get In Touch</a>
-                        <button type="button" class="btn btn-preview" id="resumePreviewBtn" aria-label="View Amit's CV">
-                            <i class="fas fa-file-lines"></i> CV
-                        </button>
-                        <a href="https://wa.me/qr/EEASQ2MOEW73P1" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                    </div>
-
-                    <div class="social-links">
-                        <span>Connect:</span>
-                        <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/amit-garai-10a804267" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://www.instagram.com/itssz.amit" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.reddit.com/user/Amit154" target="_blank" rel="noopener noreferrer" aria-label="Reddit Profile"><i class="fab fa-reddit"></i></a>
-                        <a href="mailto:garaiamit64@gmail.com" aria-label="Send Email"><i class="fas fa-envelope"></i></a>
-                    </div>
-                </div>
-
-                <!-- Desktop Profile Picture -->
-                <div class="hero-visual desktop-profile">
-                    <div class="profile-frame tilt-card" data-tilt>
-                        <img src="images/amit-profile.jpg" alt="Amit Kumar Garai - ML Enthusiast" class="profile-image" loading="eager" />
-                        <div class="profile-glow"></div>
                     </div>
                 </div>
             </header>
 
-            <!-- STATS SECTION -->
-            <section class="stats-section reveal" aria-label="Quick Highlights">
-                <a href="#projects" class="stat-card">
-                    <span class="stat-number" data-target="4">0</span>
-                    <span class="stat-label">Projects Built</span>
-                </a>
-                <a href="https://github.com/amit-649?tab=repositories" target="_blank" rel="noopener noreferrer" class="stat-card" id="statCardRepos">
-                    <span class="stat-number" id="statReposNum" data-target="11">0</span>
-                    <span class="stat-label" id="statReposLabel">Public Repositories</span>
-                </a>
-                <div class="stat-card">
-                    <span class="stat-number" data-target="2">0</span>
-                    <span class="stat-label">Years Active Coding</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number" data-target="100" data-suffix="%">0</span>
-                    <span class="stat-label">Dedication</span>
+            <!-- STATS / TELEMETRY HIGHLIGHTS -->
+            <section class="stats-section reveal" aria-label="Telemetry Highlights">
+                <div class="stats-grid">
+                    <a href="#projects" class="stat-card tilt-card" data-tilt>
+                        <div class="stat-icon-wrapper"><i class="fas fa-microchip"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" data-target="6">0</span>
+                            <span class="stat-label">Production &amp; ML Projects</span>
+                        </div>
+                    </a>
+                    <a href="https://github.com/amit-649?tab=repositories" target="_blank" rel="noopener noreferrer" class="stat-card tilt-card" id="statCardRepos" data-tilt>
+                        <div class="stat-icon-wrapper"><i class="fab fa-github"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="statReposNum" data-target="15">15</span>
+                            <span class="stat-label" id="statReposLabel">Public Repositories</span>
+                        </div>
+                    </a>
+                    <div class="stat-card tilt-card" data-tilt>
+                        <div class="stat-icon-wrapper"><i class="fas fa-chart-line"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" data-target="98" data-suffix="%">0</span>
+                            <span class="stat-label">Model Precision Benchmark</span>
+                        </div>
+                    </div>
+                    <div class="stat-card tilt-card" data-tilt>
+                        <div class="stat-icon-wrapper"><i class="fas fa-bolt"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" data-target="100" data-suffix="%">0</span>
+                            <span class="stat-label">Zero-Touch Automation</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -166,236 +265,337 @@
 
                 <!-- ABOUT SECTION -->
                 <section id="about" class="about-section tilt-card reveal" data-tilt>
-                    <div class="about-header">
-                        <span class="section-kicker">ENGINEERING PROFILE</span>
-                        <h2><i class="fas fa-user-astronaut"></i> About Me</h2>
+                    <div class="card-crystalline-border"></div>
+                    <div class="section-tag-header">
+                        <span class="section-kicker">[ENTITY PROFILE // 01]</span>
+                        <h2 class="section-heading"><i class="fas fa-atom"></i> Architecture &amp; Mindset</h2>
                     </div>
+
                     <p class="about-text">
-                        Hi! I'm Amit Kumar Garai, a curious and driven <strong>Machine Learning enthusiast</strong> and Python developer based in India. Currently in my 2nd year of BCA, I focus on engineering intelligent models, predictive systems, and high-efficiency automation workflows.
+                        I am an engineering student and computational developer building at the intersection of <strong>predictive machine learning</strong>, automated workflows, and modern web architectures. Grounded in BCA coursework and self-directed research, I focus on turning theoretical statistical algorithms into reliable, scalable software solutions.
                     </p>
                     
                     <div class="about-focus-grid">
-                        <div class="focus-item">
-                            <span class="focus-icon"><i class="fas fa-brain"></i></span>
-                            <div>
-                                <h4>Machine Learning &amp; Analytics</h4>
-                                <p>Designing predictive models with Scikit-Learn, data manipulation via Pandas &amp; NumPy, and statistical evaluation.</p>
+                        <div class="focus-card">
+                            <div class="focus-icon-box"><i class="fas fa-brain"></i></div>
+                            <div class="focus-details">
+                                <h3>Machine Learning &amp; Statistical Modeling</h3>
+                                <p>Architecting supervised and unsupervised pipelines using Scikit-Learn, data cleansing via Pandas/NumPy, and high-precision evaluation matrices.</p>
                             </div>
                         </div>
-                        <div class="focus-item">
-                            <span class="focus-icon"><i class="fas fa-robot"></i></span>
-                            <div>
-                                <h4>Autonomous Bots &amp; Automation</h4>
-                                <p>Engineering resilient headless browser automations and cron scrapers using Python and Playwright.</p>
+
+                        <div class="focus-card">
+                            <div class="focus-icon-box"><i class="fas fa-robot"></i></div>
+                            <div class="focus-details">
+                                <h3>Headless Bots &amp; Distributed Automations</h3>
+                                <p>Designing resilient, headless browser automation engines with Python, Playwright, and background scheduler daemons.</p>
+                            </div>
+                        </div>
+
+                        <div class="focus-card">
+                            <div class="focus-icon-box"><i class="fas fa-cube"></i></div>
+                            <div class="focus-details">
+                                <h3>Modern Web &amp; WebAssembly Systems</h3>
+                                <p>Building responsive, client-side WASM pipelines (e.g. in-browser video manipulation with FFmpeg WASM) and high-fidelity Next.js interfaces.</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="skill-cloud">
-                        <span class="skill-tag">Python 🐍</span>
-                        <span class="skill-tag">Scikit-Learn</span>
-                        <span class="skill-tag">Pandas</span>
-                        <span class="skill-tag">NumPy</span>
-                        <span class="skill-tag">Playwright Automation</span>
-                        <span class="skill-tag">NLP Basics</span>
-                        <span class="skill-tag">Computer Vision</span>
-                    </div>
-
-                    <!-- Beyond Code / Inspirations Subcard -->
+                    <!-- Cultural Inspirations Subcard -->
                     <div class="about-inspirations">
                         <div class="inspirations-header">
-                            <h3><i class="fas fa-tv"></i> Beyond Code &bull; Favorite Anime &amp; Inspirations</h3>
-                            <span class="inspirations-sub">Stories that fuel curiosity, logic &amp; creativity</span>
+                            <div>
+                                <span class="inspirations-badge">[NARRATIVE RESONANCES]</span>
+                                <h3>Stories Fueling Curiosity, Logic &amp; World-Building</h3>
+                            </div>
+                            <span class="inspirations-sub">Philosophy • Divergence • Cause &amp; Effect</span>
                         </div>
-                        <div class="anime-list-compact">
-                            <button type="button" class="anime-item" data-anime="Steins;Gate" aria-label="Search Steins;Gate anime">
-                                <span class="anime-left">
-                                    <span class="anime-thumb-wrapper">
-                                        <img src="images/anime/steins-gate.jpg" alt="Steins;Gate Poster" class="anime-thumb" width="42" height="42" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
-                                        <span class="anime-fallback-icon" aria-hidden="true"><i class="fas fa-tv"></i></span>
-                                    </span>
-                                    <span class="anime-info">
-                                        <span class="anime-name">Steins;Gate</span>
-                                        <span class="anime-tag">Sci-Fi / Time Travel</span>
-                                    </span>
-                                </span>
-                            </button>
-                            <button type="button" class="anime-item" data-anime="Mushoku Tensei" aria-label="Search Mushoku Tensei anime">
-                                <span class="anime-left">
-                                    <span class="anime-thumb-wrapper">
-                                        <img src="images/anime/mushoku-tensei.jpg" alt="Mushoku Tensei Poster" class="anime-thumb" width="42" height="42" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
-                                        <span class="anime-fallback-icon" aria-hidden="true"><i class="fas fa-magic"></i></span>
-                                    </span>
-                                    <span class="anime-info">
-                                        <span class="anime-name">Mushoku Tensei</span>
-                                        <span class="anime-tag">World-Building</span>
-                                    </span>
-                                </span>
-                            </button>
-                            <button type="button" class="anime-item" data-anime="Re:Zero" aria-label="Search Re:Zero anime">
-                                <span class="anime-left">
-                                    <span class="anime-thumb-wrapper">
-                                        <img src="images/anime/re-zero.jpg" alt="Re:Zero Poster" class="anime-thumb" width="42" height="42" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
-                                        <span class="anime-fallback-icon" aria-hidden="true"><i class="fas fa-redo-alt"></i></span>
-                                    </span>
-                                    <span class="anime-info">
-                                        <span class="anime-name">Re:Zero</span>
-                                        <span class="anime-tag">Psychological</span>
-                                    </span>
-                                </span>
-                            </button>
-                            <button type="button" class="anime-item" data-anime="Your Name" aria-label="Search Your Name anime">
-                                <span class="anime-left">
-                                    <span class="anime-thumb-wrapper">
-                                        <img src="images/anime/your-name.jpg" alt="Your Name Poster" class="anime-thumb" width="42" height="42" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
-                                        <span class="anime-fallback-icon" aria-hidden="true"><i class="fas fa-meteor"></i></span>
-                                    </span>
-                                    <span class="anime-info">
-                                        <span class="anime-name">Your Name</span>
-                                        <span class="anime-tag">Animation Movie</span>
-                                    </span>
-                                </span>
-                            </button>
+                        <div class="anime-list-grid">
+                            <div class="anime-card" data-anime="Steins;Gate">
+                                <div class="anime-media">
+                                    <img src="images/anime/steins-gate.jpg" alt="Steins;Gate Poster" class="anime-poster" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
+                                    <div class="anime-fallback-icon"><i class="fas fa-tv"></i></div>
+                                </div>
+                                <div class="anime-content">
+                                    <span class="anime-title">Steins;Gate</span>
+                                    <span class="anime-theme">Causality, Logic &amp; Time</span>
+                                </div>
+                            </div>
+
+                            <div class="anime-card" data-anime="Mushoku Tensei">
+                                <div class="anime-media">
+                                    <img src="images/anime/mushoku-tensei.jpg" alt="Mushoku Tensei Poster" class="anime-poster" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
+                                    <div class="anime-fallback-icon"><i class="fas fa-magic"></i></div>
+                                </div>
+                                <div class="anime-content">
+                                    <span class="anime-title">Mushoku Tensei</span>
+                                    <span class="anime-theme">World-Building &amp; Growth</span>
+                                </div>
+                            </div>
+
+                            <div class="anime-card" data-anime="Re:Zero">
+                                <div class="anime-media">
+                                    <img src="images/anime/re-zero.jpg" alt="Re:Zero Poster" class="anime-poster" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
+                                    <div class="anime-fallback-icon"><i class="fas fa-redo-alt"></i></div>
+                                </div>
+                                <div class="anime-content">
+                                    <span class="anime-title">Re:Zero</span>
+                                    <span class="anime-theme">Resilience &amp; Iteration</span>
+                                </div>
+                            </div>
+
+                            <div class="anime-card" data-anime="Your Name">
+                                <div class="anime-media">
+                                    <img src="images/anime/your-name.jpg" alt="Your Name Poster" class="anime-poster" loading="lazy" onerror="this.parentElement.classList.add('no-img');" />
+                                    <div class="anime-fallback-icon"><i class="fas fa-meteor"></i></div>
+                                </div>
+                                <div class="anime-content">
+                                    <span class="anime-title">Your Name</span>
+                                    <span class="anime-theme">Cinematography &amp; Craft</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- TECH STACK -->
+                <!-- TECH MATRIX SECTION -->
                 <section id="techstack" class="techstack-section reveal">
-                    <h2 class="section-title"><i class="fas fa-layer-group"></i> Tech Stack &amp; Tooling</h2>
+                    <div class="section-tag-header">
+                        <span class="section-kicker">[CAPABILITIES // 02]</span>
+                        <h2 class="section-heading"><i class="fas fa-layer-group"></i> Technical Matrix &amp; Tooling</h2>
+                    </div>
+
                     <div class="techstack-grid">
                         <!-- Machine Learning & Data Science -->
-                        <div class="techstack-category tilt-card" data-tilt>
-                            <div class="category-header">
-                                <div class="category-icon ml-icon"><i class="fas fa-brain"></i></div>
+                        <div class="techstack-card tilt-card" data-tilt>
+                            <div class="tech-card-header">
+                                <div class="tech-icon-pill ml-pill"><i class="fas fa-brain"></i></div>
                                 <div>
                                     <h3>Machine Learning &amp; AI</h3>
-                                    <small>Models, Statistics &amp; Pipelines</small>
+                                    <span class="tech-meta">Inference, Statistics &amp; Evaluation</span>
                                 </div>
                             </div>
-                            <div class="tech-items">
-                                <div class="tech-item">
-                                    <i class="fab fa-python"></i>
-                                    <span>Python</span>
-                                </div>
-                                <div class="tech-item">
-                                    <i class="fas fa-network-wired"></i>
-                                    <span>Scikit-Learn</span>
-                                </div>
-                                <div class="tech-item">
-                                    <i class="fas fa-table"></i>
-                                    <span>Pandas</span>
-                                </div>
-                                <div class="tech-item">
-                                    <i class="fas fa-calculator"></i>
-                                    <span>NumPy</span>
-                                </div>
-                                <div class="tech-item">
-                                    <i class="fas fa-chart-pie"></i>
-                                    <span>Matplotlib</span>
-                                </div>
-                                <div class="tech-item">
-                                    <i class="fas fa-language"></i>
-                                    <span>NLP Basics</span>
-                                </div>
+                            <div class="tech-chip-collection">
+                                <span class="tech-chip"><i class="fab fa-python"></i> Python</span>
+                                <span class="tech-chip"><i class="fas fa-network-wired"></i> Scikit-Learn</span>
+                                <span class="tech-chip"><i class="fas fa-table"></i> Pandas</span>
+                                <span class="tech-chip"><i class="fas fa-calculator"></i> NumPy</span>
+                                <span class="tech-chip"><i class="fas fa-chart-pie"></i> Matplotlib</span>
+                                <span class="tech-chip"><i class="fas fa-language"></i> NLP Tokenization</span>
+                                <span class="tech-chip"><i class="fas fa-eye"></i> OpenCV Basics</span>
+                                <span class="tech-chip"><i class="fas fa-filter"></i> TF-IDF Vectorizer</span>
                             </div>
                         </div>
 
                         <!-- Core Languages & Systems -->
-                        <div class="techstack-category tilt-card" data-tilt>
-                            <div class="category-header">
-                                <div class="category-icon sys-icon"><i class="fas fa-terminal"></i></div>
+                        <div class="techstack-card tilt-card" data-tilt>
+                            <div class="tech-card-header">
+                                <div class="tech-icon-pill sys-pill"><i class="fas fa-terminal"></i></div>
                                 <div>
                                     <h3>Languages &amp; Systems</h3>
-                                    <small>Foundational Computing &amp; Logic</small>
+                                    <span class="tech-meta">Foundational Computation &amp; Runtime</span>
                                 </div>
                             </div>
-                            <div class="tech-items">
-                                <div class="tech-item">
-                                    <i class="fas fa-c"></i>
-                                    <span>C</span>
-                                </div>
-                                <div class="tech-item">
-                                    <i class="fas fa-code"></i>
-                                    <span>C++</span>
-                                </div>
-                                <div class="tech-item">
-                                    <i class="fab fa-java"></i>
-                                    <span>Java</span>
-                                </div>
-                                <div class="tech-item">
-                                    <i class="fab fa-git-alt"></i>
-                                    <span>Git &amp; GitHub</span>
-                                </div>
-                                <div class="tech-item">
-                                    <i class="fab fa-linux"></i>
-                                    <span>Linux CLI</span>
-                                </div>
-                                <div class="tech-item">
-                                    <i class="fas fa-database"></i>
-                                    <span>SQL Basics</span>
-                                </div>
+                            <div class="tech-chip-collection">
+                                <span class="tech-chip"><i class="fas fa-c"></i> C</span>
+                                <span class="tech-chip"><i class="fas fa-code"></i> C++</span>
+                                <span class="tech-chip"><i class="fab fa-java"></i> Java</span>
+                                <span class="tech-chip"><i class="fab fa-git-alt"></i> Git &amp; GitHub</span>
+                                <span class="tech-chip"><i class="fab fa-linux"></i> Linux CLI / Bash</span>
+                                <span class="tech-chip"><i class="fas fa-database"></i> SQL Relational</span>
+                                <span class="tech-chip"><i class="fas fa-microchip"></i> Data Structures</span>
+                                <span class="tech-chip"><i class="fas fa-network-wired"></i> RESTful APIs</span>
                             </div>
                         </div>
 
                         <!-- Web & Automation Tooling -->
-                        <div class="techstack-category tilt-card" data-tilt>
-                            <div class="category-header">
-                                <div class="category-icon web-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="techstack-card tilt-card" data-tilt>
+                            <div class="tech-card-header">
+                                <div class="tech-icon-pill web-pill"><i class="fas fa-bolt"></i></div>
                                 <div>
                                     <h3>Web &amp; Automation</h3>
-                                    <small>Bots, Interfaces &amp; Workflows</small>
+                                    <span class="tech-meta">Bots, WASM &amp; Interactive UI</span>
                                 </div>
                             </div>
-                            <div class="tech-items">
-                                <div class="tech-item">
-                                    <i class="fas fa-robot"></i>
-                                    <span>Playwright</span>
-                                </div>
-                                <div class="tech-item">
-                                    <i class="fab fa-js"></i>
-                                    <span>JavaScript</span>
-                                </div>
-                                <div class="tech-item">
-                                    <i class="fab fa-html5"></i>
-                                    <span>HTML5</span>
-                                </div>
-                                <div class="tech-item">
-                                    <i class="fab fa-css3-alt"></i>
-                                    <span>CSS3</span>
-                                </div>
-                                <div class="tech-item">
-                                    <i class="fab fa-react"></i>
-                                    <span>React</span>
-                                </div>
-                                <div class="tech-item">
-                                    <i class="fas fa-code-branch"></i>
-                                    <span>REST APIs</span>
-                                </div>
+                            <div class="tech-chip-collection">
+                                <span class="tech-chip"><i class="fas fa-robot"></i> Playwright</span>
+                                <span class="tech-chip"><i class="fab fa-react"></i> Next.js &amp; React</span>
+                                <span class="tech-chip"><i class="fab fa-js"></i> JavaScript ES6+</span>
+                                <span class="tech-chip"><i class="fas fa-film"></i> FFmpeg WASM</span>
+                                <span class="tech-chip"><i class="fab fa-css3-alt"></i> Tailwind CSS</span>
+                                <span class="tech-chip"><i class="fas fa-cube"></i> Three.js WebGL</span>
+                                <span class="tech-chip"><i class="fas fa-clock"></i> Cron Scheduling</span>
+                                <span class="tech-chip"><i class="fas fa-shield-halved"></i> Headless Scraping</span>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- PROJECTS (BENTO GRID SHOWCASE) -->
-                <section id="projects" class="projects-section reveal">
-                    <div class="section-header-row">
-                        <div>
-                            <span class="section-kicker">ENGINEERING PORTFOLIO</span>
-                            <h2 class="section-title"><i class="fas fa-code-branch"></i> Featured Projects</h2>
+                <!-- LIVE INTERACTIVE ML PLAYGROUND WIDGET -->
+                <section id="playground" class="playground-section tilt-card reveal" data-tilt>
+                    <div class="card-crystalline-border"></div>
+                    <div class="section-tag-header">
+                        <span class="section-kicker">[EXPERIENCE LIVE ML // 03]</span>
+                        <h2 class="section-heading"><i class="fas fa-sliders"></i> Interactive Neural Classifier Simulator</h2>
+                    </div>
+
+                    <p class="playground-desc">
+                        Interact directly with this live, client-side inference engine. Adjust the feature parameters below to observe real-time botanical classification probability curves calculated across learned vector spaces:
+                    </p>
+
+                    <div class="ml-playground-grid">
+                        <!-- Sliders Panel -->
+                        <div class="playground-controls">
+                            <div class="control-row">
+                                <div class="slider-header">
+                                    <span class="slider-title">Sepal Length (cm)</span>
+                                    <span class="slider-val" id="valSepalLength">5.8</span>
+                                </div>
+                                <input type="range" id="inputSepalLength" min="4.0" max="8.0" step="0.1" value="5.8" class="crystalline-slider" />
+                            </div>
+
+                            <div class="control-row">
+                                <div class="slider-header">
+                                    <span class="slider-title">Sepal Width (cm)</span>
+                                    <span class="slider-val" id="valSepalWidth">3.0</span>
+                                </div>
+                                <input type="range" id="inputSepalWidth" min="2.0" max="4.5" step="0.1" value="3.0" class="crystalline-slider" />
+                            </div>
+
+                            <div class="control-row">
+                                <div class="slider-header">
+                                    <span class="slider-title">Petal Length (cm)</span>
+                                    <span class="slider-val" id="valPetalLength">4.2</span>
+                                </div>
+                                <input type="range" id="inputPetalLength" min="1.0" max="7.0" step="0.1" value="4.2" class="crystalline-slider" />
+                            </div>
+
+                            <div class="control-row">
+                                <div class="slider-header">
+                                    <span class="slider-title">Petal Width (cm)</span>
+                                    <span class="slider-val" id="valPetalWidth">1.3</span>
+                                </div>
+                                <input type="range" id="inputPetalWidth" min="0.1" max="2.5" step="0.1" value="1.3" class="crystalline-slider" />
+                            </div>
+
+                            <div class="playground-actions">
+                                <button type="button" class="btn btn-sm btn-glass" id="resetSlidersBtn">
+                                    <i class="fas fa-rotate-left"></i> Reset Defaults
+                                </button>
+                                <button type="button" class="btn btn-sm btn-glass" id="randomizeSlidersBtn">
+                                    <i class="fas fa-dice"></i> Randomize Vectors
+                                </button>
+                            </div>
                         </div>
-                        <a href="https://github.com/amit-649?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
-                            <i class="fab fa-github"></i> View All Repositories
+
+                        <!-- Prediction Output Hologram -->
+                        <div class="playground-telemetry">
+                            <div class="telemetry-hud-top">
+                                <span class="hud-label">CLASSIFIER INFERENCE ENGINE</span>
+                                <span class="hud-status"><i class="fas fa-bolt"></i> REALTIME</span>
+                            </div>
+
+                            <div class="prediction-highlight-card">
+                                <span class="pred-label">PREDICTED SPECIES:</span>
+                                <h3 class="pred-result" id="predictedClass">Iris Versicolor</h3>
+                                <div class="confidence-badge" id="confidenceBadge">
+                                    Confidence: <span id="confidencePct">94.8%</span>
+                                </div>
+                            </div>
+
+                            <!-- Probability Bars -->
+                            <div class="probability-bars">
+                                <div class="prob-row">
+                                    <div class="prob-labels">
+                                        <span>Iris Setosa</span>
+                                        <span id="probSetosaVal">2.1%</span>
+                                    </div>
+                                    <div class="prob-track">
+                                        <div class="prob-fill fill-setosa" id="probSetosaFill" style="width: 2.1%;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="prob-row">
+                                    <div class="prob-labels">
+                                        <span>Iris Versicolor</span>
+                                        <span id="probVersicolorVal">94.8%</span>
+                                    </div>
+                                    <div class="prob-track">
+                                        <div class="prob-fill fill-versicolor" id="probVersicolorFill" style="width: 94.8%;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="prob-row">
+                                    <div class="prob-labels">
+                                        <span>Iris Virginica</span>
+                                        <span id="probVirginicaVal">3.1%</span>
+                                    </div>
+                                    <div class="prob-track">
+                                        <div class="prob-fill fill-virginica" id="probVirginicaFill" style="width: 3.1%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="playground-footer-note">
+                                <i class="fas fa-info-circle"></i> Mathematical centroid distance projection modeled after Fisher's Iris Dataset.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PROJECTS (CRYSTALLINE BENTO GRID SHOWCASE) -->
+                <section id="projects" class="projects-section reveal">
+                    <div class="section-tag-header flex-between">
+                        <div>
+                            <span class="section-kicker">[SYSTEMS // 04]</span>
+                            <h2 class="section-heading"><i class="fas fa-code-fork"></i> Crystalline Portfolio &amp; Builds</h2>
+                        </div>
+                        <a href="https://github.com/amit-649?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-glass">
+                            <i class="fab fa-github"></i> Browse 15+ Repositories
                         </a>
                     </div>
 
-                    <div class="projects-grid">
-                        <!-- Project 1: Epic Games Auto Claimer (Bento Featured) -->
-                        <div class="project-bento-card tilt-card featured-project" data-tilt>
-                            <div class="project-top">
-                                <span class="project-domain-pill automation"><i class="fas fa-robot"></i> Headless Automation</span>
-                                <span class="project-metric-badge" id="epicStarsBadge"><i class="fas fa-star" style="color:#eab308;"></i> 2 Stars</span>
-                                <span class="project-metric-badge"><i class="fas fa-bolt"></i> 100% Zero-Touch Cron</span>
+                    <div class="projects-bento-grid">
+
+                        <!-- Project 1: Apex Downloader (Next.js + WebAssembly FFmpeg) -->
+                        <div class="project-card tilt-card featured-slab" data-tilt>
+                            <div class="project-slab-header">
+                                <div class="slab-badge-group">
+                                    <span class="slab-pill wasm"><i class="fas fa-film"></i> WebAssembly &amp; Next.js</span>
+                                    <span class="slab-metric"><i class="fas fa-bolt"></i> 1080p/4K In-Browser Merging</span>
+                                </div>
+                                <span class="slab-index">#01</span>
+                            </div>
+                            <h3 class="project-title">
+                                <a href="https://github.com/amit-649/apex-downloader" target="_blank" rel="noopener noreferrer">
+                                    Apex Downloader <i class="fas fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </h3>
+                            <p class="project-desc">
+                                A high-performance media processing suite supporting YouTube, Instagram, and Pinterest. Features in-browser WebAssembly FFmpeg multiplexing, enabling client-side audio/video merging without expensive backend transcoding servers.
+                            </p>
+                            <div class="project-footer">
+                                <div class="project-tech-tags">
+                                    <span>Next.js</span>
+                                    <span>React</span>
+                                    <span>FFmpeg WASM</span>
+                                    <span>Tailwind CSS</span>
+                                    <span>TypeScript</span>
+                                </div>
+                                <a href="https://github.com/amit-649/apex-downloader" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="Apex Downloader GitHub Repository">
+                                    <i class="fab fa-github"></i> Repository
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Project 2: Epic Games Auto Claimer -->
+                        <div class="project-card tilt-card" data-tilt>
+                            <div class="project-slab-header">
+                                <div class="slab-badge-group">
+                                    <span class="slab-pill automation"><i class="fas fa-robot"></i> Headless Automation</span>
+                                    <span class="slab-metric" id="epicStarsBadge"><i class="fas fa-star" style="color:#eab308;"></i> 2 Stars</span>
+                                </div>
+                                <span class="slab-index">#02</span>
                             </div>
                             <h3 class="project-title">
                                 <a href="https://github.com/amit-649/epic-games-auto-claimer" target="_blank" rel="noopener noreferrer">
@@ -403,127 +603,160 @@
                                 </a>
                             </h3>
                             <p class="project-desc">
-                                An automated headless bot engineered with Python and Playwright that autonomously detects, authenticates, and claims weekly free games from the Epic Games Store without manual browser intervention.
+                                Fully autonomous Python headless bot powered by Playwright. Automates authentication, weekly giveaway detection, and promotional cart checkouts with 100% zero-touch reliability.
                             </p>
-                            <div class="project-meta">
-                                <div class="project-tags">
+                            <div class="project-footer">
+                                <div class="project-tech-tags">
                                     <span>Python</span>
                                     <span>Playwright</span>
-                                    <span>Headless Browser</span>
                                     <span>Automation</span>
+                                    <span>Cron Daemon</span>
                                 </div>
-                                <div class="project-links">
-                                    <a href="https://github.com/amit-649/epic-games-auto-claimer" target="_blank" rel="noopener noreferrer" class="project-btn" aria-label="View Epic Games Auto Claimer source code">
-                                        <i class="fab fa-github"></i> Code
-                                    </a>
-                                </div>
+                                <a href="https://github.com/amit-649/epic-games-auto-claimer" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="Epic Games Auto Claimer Repository">
+                                    <i class="fab fa-github"></i> Repository
+                                </a>
                             </div>
                         </div>
 
-                        <!-- Project 2: Iris Flower Classification -->
-                        <div class="project-bento-card tilt-card" data-tilt>
-                            <div class="project-top">
-                                <span class="project-domain-pill ml"><i class="fas fa-brain"></i> Supervised ML</span>
-                                <span class="project-metric-badge"><i class="fas fa-bullseye"></i> 98.2% Accuracy</span>
+                        <!-- Project 3: Whisper-Pulse -->
+                        <div class="project-card tilt-card" data-tilt>
+                            <div class="project-slab-header">
+                                <div class="slab-badge-group">
+                                    <span class="slab-pill web"><i class="fas fa-shield-halved"></i> Anonymous Social</span>
+                                    <span class="slab-metric"><i class="fas fa-database"></i> FastAPI + Postgres</span>
+                                </div>
+                                <span class="slab-index">#03</span>
                             </div>
                             <h3 class="project-title">
-                                <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer">
-                                    Iris Flower Classification <i class="fas fa-arrow-up-right-from-square"></i>
+                                <a href="https://github.com/amit-649/Whisper-Pulse" target="_blank" rel="noopener noreferrer">
+                                    Whisper-Pulse <i class="fas fa-arrow-up-right-from-square"></i>
                                 </a>
                             </h3>
                             <p class="project-desc">
-                                Predictive multi-class machine learning model classifying iris flower species with high statistical precision using dimensional analysis of sepal and petal features.
+                                Anonymous Q&amp;A platform featuring cryptographic privacy, dynamic social card generation, sound synthesizers, and real-time interaction metrics built with Next.js and FastAPI.
                             </p>
-                            <div class="project-meta">
-                                <div class="project-tags">
+                            <div class="project-footer">
+                                <div class="project-tech-tags">
+                                    <span>Next.js</span>
+                                    <span>FastAPI</span>
+                                    <span>PostgreSQL</span>
+                                    <span>Tailwind CSS</span>
+                                </div>
+                                <a href="https://github.com/amit-649/Whisper-Pulse" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="Whisper-Pulse Repository">
+                                    <i class="fab fa-github"></i> Repository
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Project 4: Iris Classification Model -->
+                        <div class="project-card tilt-card" data-tilt>
+                            <div class="project-slab-header">
+                                <div class="slab-badge-group">
+                                    <span class="slab-pill ml"><i class="fas fa-brain"></i> Supervised ML</span>
+                                    <span class="slab-metric"><i class="fas fa-bullseye"></i> 98.2% Accuracy</span>
+                                </div>
+                                <span class="slab-index">#04</span>
+                            </div>
+                            <h3 class="project-title">
+                                <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer">
+                                    Iris Species Classifier <i class="fas fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </h3>
+                            <p class="project-desc">
+                                Multi-class machine learning classification engine analyzing botanical measurements with high precision using Support Vector Machines and Scikit-Learn data transformation pipelines.
+                            </p>
+                            <div class="project-footer">
+                                <div class="project-tech-tags">
                                     <span>Python</span>
                                     <span>Scikit-Learn</span>
                                     <span>Pandas</span>
                                     <span>Classification</span>
                                 </div>
-                                <div class="project-links">
-                                    <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer" class="project-btn" aria-label="View Iris Flower Classification repository">
-                                        <i class="fab fa-github"></i> Code
-                                    </a>
-                                </div>
+                                <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="Iris Classifier Repository">
+                                    <i class="fab fa-github"></i> Code
+                                </a>
                             </div>
                         </div>
 
-                        <!-- Project 3: MNIST Digit Recognition -->
-                        <div class="project-bento-card tilt-card" data-tilt>
-                            <div class="project-top">
-                                <span class="project-domain-pill vision"><i class="fas fa-eye"></i> Computer Vision</span>
-                                <span class="project-metric-badge"><i class="fas fa-chart-line"></i> 97.4% Score</span>
+                        <!-- Project 5: MNIST Digit Computer Vision -->
+                        <div class="project-card tilt-card" data-tilt>
+                            <div class="project-slab-header">
+                                <div class="slab-badge-group">
+                                    <span class="slab-pill vision"><i class="fas fa-eye"></i> Computer Vision</span>
+                                    <span class="slab-metric"><i class="fas fa-chart-line"></i> 97.4% Score</span>
+                                </div>
+                                <span class="slab-index">#05</span>
                             </div>
                             <h3 class="project-title">
                                 <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer">
-                                    MNIST Digit Recognition <i class="fas fa-arrow-up-right-from-square"></i>
+                                    MNIST Digit Recognizer <i class="fas fa-arrow-up-right-from-square"></i>
                                 </a>
                             </h3>
                             <p class="project-desc">
-                                Computer vision pipeline recognizing handwritten digits from 28x28 grayscale pixel matrices, employing Support Vector Machines (SVM) and image normalization.
+                                Computer vision pipeline recognizing handwritten digits from 28×28 grayscale pixel matrices, employing Support Vector Machines (SVM) with hyperparameter grid optimization.
                             </p>
-                            <div class="project-meta">
-                                <div class="project-tags">
+                            <div class="project-footer">
+                                <div class="project-tech-tags">
                                     <span>Python</span>
                                     <span>SVM</span>
                                     <span>NumPy</span>
                                     <span>Computer Vision</span>
                                 </div>
-                                <div class="project-links">
-                                    <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer" class="project-btn" aria-label="View MNIST Digit Recognition repository">
-                                        <i class="fab fa-github"></i> Code
-                                    </a>
-                                </div>
+                                <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="MNIST Recognizer Repository">
+                                    <i class="fab fa-github"></i> Code
+                                </a>
                             </div>
                         </div>
 
-                        <!-- Project 4: SMS Spam Detection Engine -->
-                        <div class="project-bento-card tilt-card" data-tilt>
-                            <div class="project-top">
-                                <span class="project-domain-pill nlp"><i class="fas fa-filter"></i> NLP Pipeline</span>
-                                <span class="project-metric-badge"><i class="fas fa-check-double"></i> 96.8% Precision</span>
+                        <!-- Project 6: SMS Spam Detection Engine -->
+                        <div class="project-card tilt-card" data-tilt>
+                            <div class="project-slab-header">
+                                <div class="slab-badge-group">
+                                    <span class="slab-pill nlp"><i class="fas fa-filter"></i> NLP Pipeline</span>
+                                    <span class="slab-metric"><i class="fas fa-check-double"></i> 96.8% Precision</span>
+                                </div>
+                                <span class="slab-index">#06</span>
                             </div>
                             <h3 class="project-title">
                                 <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer">
-                                    SMS Spam Filter <i class="fas fa-arrow-up-right-from-square"></i>
+                                    SMS Spam Classification <i class="fas fa-arrow-up-right-from-square"></i>
                                 </a>
                             </h3>
                             <p class="project-desc">
-                                Natural language processing engine detecting spam messages using TF-IDF tokenization, stop-word elimination, and Multinomial Naive Bayes probabilistic modeling.
+                                Probabilistic NLP filter classifying unsolicited messages using TF-IDF tokenization, stop-word elimination, and Multinomial Naive Bayes modeling.
                             </p>
-                            <div class="project-meta">
-                                <div class="project-tags">
+                            <div class="project-footer">
+                                <div class="project-tech-tags">
                                     <span>Python</span>
                                     <span>NLP</span>
                                     <span>Naive Bayes</span>
                                     <span>Text Analytics</span>
                                 </div>
-                                <div class="project-links">
-                                    <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer" class="project-btn" aria-label="View SMS Spam Filter repository">
-                                        <i class="fab fa-github"></i> Code
-                                    </a>
-                                </div>
+                                <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="SMS Spam Classifier Repository">
+                                    <i class="fab fa-github"></i> Code
+                                </a>
                             </div>
                         </div>
+
                     </div>
                 </section>
 
-                <!-- EDUCATION & CAREER ROADMAP (MODERN LINEAR/VERCEL STYLE) -->
+                <!-- ROADMAP & CAREER ODYSSEY -->
                 <section id="qualifications" class="tilt-card reveal" data-tilt>
-                    <div class="roadmap-header">
+                    <div class="card-crystalline-border"></div>
+                    <div class="section-tag-header flex-between">
                         <div>
-                            <span class="roadmap-kicker">ACADEMIC & CAREER PATHWAY</span>
-                            <h2 class="roadmap-heading"><i class="fas fa-layer-group"></i> Education & Milestones</h2>
+                            <span class="section-kicker">[PATHWAY // 05]</span>
+                            <h2 class="section-heading"><i class="fas fa-compass"></i> Academic &amp; Career Odyssey</h2>
                         </div>
                         <div class="current-status-chip">
                             <span class="pulse-beacon"></span>
-                            <span>Currently in 2nd Year BCA</span>
+                            <span>Active: 2nd Year BCA (2025—2029)</span>
                         </div>
                     </div>
 
                     <div class="roadmap-timeline" id="qualTimeline">
-                        <!-- Connecting Continuous Laser Line -->
+                        <!-- Laser Spine Track -->
                         <div class="roadmap-spine">
                             <div class="roadmap-spine-fill"></div>
                         </div>
@@ -536,17 +769,17 @@
                             <div class="milestone-card">
                                 <div class="milestone-top">
                                     <div class="milestone-badge-group">
-                                        <span class="milestone-year">Class 10 • ICSE</span>
-                                        <span class="milestone-score">70% Score</span>
+                                        <span class="milestone-year">Class 10 • ICSE Board</span>
+                                        <span class="milestone-score">70% Grade</span>
                                     </div>
                                     <span class="milestone-status-pill completed">Completed</span>
                                 </div>
-                                <h3 class="milestone-title">Secondary Education Foundation</h3>
-                                <p class="milestone-text">Built strong logical foundations in Mathematics, Analytical Reasoning, and Computer Applications.</p>
+                                <h3 class="milestone-title">Foundational Secondary Education</h3>
+                                <p class="milestone-text">Developed strong computational instincts, logical analysis, and early programming principles in Computer Applications.</p>
                                 <div class="milestone-tags">
                                     <span>Computer Applications</span>
                                     <span>Mathematics</span>
-                                    <span>ICSE Board</span>
+                                    <span>ICSE</span>
                                 </div>
                             </div>
                         </div>
@@ -559,23 +792,23 @@
                             <div class="milestone-card">
                                 <div class="milestone-top">
                                     <div class="milestone-badge-group">
-                                        <span class="milestone-year">Class 12 • CBSE</span>
-                                        <span class="milestone-score">66% Score</span>
+                                        <span class="milestone-year">Class 12 • CBSE Board</span>
+                                        <span class="milestone-score">66% Grade</span>
                                     </div>
                                     <span class="milestone-status-pill completed">Completed</span>
                                 </div>
-                                <h3 class="milestone-title">Higher Secondary (+2 Commerce &amp; CS)</h3>
-                                <p class="milestone-text">Combined business, economic, and computational logic with dedicated Computer Science and programming electives.</p>
+                                <h3 class="milestone-title">Senior Secondary (+2 Commerce &amp; CS)</h3>
+                                <p class="milestone-text">Combined quantitative economic analysis and business structures with dedicated Computer Science programming curricula.</p>
                                 <div class="milestone-tags">
-                                    <span>Commerce Stream</span>
+                                    <span>Commerce</span>
                                     <span>Computer Science</span>
                                     <span>Economics</span>
-                                    <span>CBSE Board</span>
+                                    <span>CBSE</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Milestone 3: Current BCA 2nd Year (HERO BENTO CARD) -->
+                        <!-- Milestone 3: Current BCA 2nd Year (HERO CARD) -->
                         <div class="roadmap-milestone active-milestone" style="--m-index: 2;">
                             <div class="milestone-marker">
                                 <span class="marker-dot active-dot">
@@ -589,16 +822,16 @@
                                         <span class="milestone-year active-year">2025 — 2029 • Present</span>
                                         <span class="active-live-tag"><i class="fas fa-bolt"></i> In Progress</span>
                                     </div>
-                                    <span class="milestone-status-pill active-pill">Active Focus</span>
+                                    <span class="milestone-status-pill active-pill">Active Specialization</span>
                                 </div>
                                 <h3 class="milestone-title active-title">Bachelor of Computer Applications (2nd Year)</h3>
-                                <p class="milestone-text">Specializing in Machine Learning, Statistical Modeling, and Python-driven automation systems. Engineering predictive models and practical AI pipelines.</p>
+                                <p class="milestone-text">Specializing in Machine Learning pipelines, statistical modeling, algorithmic optimization, and Python-driven automation architectures.</p>
                                 <div class="milestone-tags">
                                     <span class="featured-tag">Python &amp; Scikit-Learn</span>
-                                    <span class="featured-tag">Data Structures</span>
+                                    <span class="featured-tag">Data Structures &amp; Algorithms</span>
                                     <span class="featured-tag">Pandas &amp; NumPy</span>
                                     <span class="featured-tag">Predictive Modeling</span>
-                                    <span class="featured-tag">Automation</span>
+                                    <span class="featured-tag">Headless Automation</span>
                                 </div>
                             </div>
                         </div>
@@ -615,12 +848,12 @@
                                     </div>
                                     <span class="milestone-status-pill future-pill">Next Horizon</span>
                                 </div>
-                                <h3 class="milestone-title">FAANG / Tier-1 Machine Learning Engineer</h3>
-                                <p class="milestone-text">Architecting production-grade machine learning pipelines, scalable inference engines, and applied artificial intelligence solutions.</p>
+                                <h3 class="milestone-title">Tier-1 Machine Learning Engineer</h3>
+                                <p class="milestone-text">Architecting production-grade machine learning pipelines, distributed inference engines, and applied artificial intelligence solutions at global scale.</p>
                                 <div class="milestone-tags">
                                     <span>Production ML</span>
                                     <span>Deep Learning</span>
-                                    <span>High-Performance APIs</span>
+                                    <span>Scalable Inference APIs</span>
                                     <span>System Design</span>
                                 </div>
                             </div>
@@ -629,68 +862,116 @@
                     </div>
                 </section>
 
-
-
-                <!-- CONTACT SECTION -->
+                <!-- CONTACT & TRANSMISSION CONSOLE -->
                 <section id="contact" class="contact-section reveal">
-                    <div class="contact-info">
-                        <h2><i class="fas fa-envelope"></i> Let's Connect</h2>
-                        <p>I'm always excited to collaborate on open-source projects, ML experiments, and internship opportunities.</p>
+                    <div class="contact-grid">
+                        <div class="contact-info-panel">
+                            <span class="section-kicker">[TRANSMISSION // 06]</span>
+                            <h2 class="contact-title"><i class="fas fa-satellite-dish"></i> Initiate Contact</h2>
+                            <p class="contact-subtitle">
+                                Open to ML/Software Engineering internships, research collaborations, open-source projects, and technical dialogues.
+                            </p>
 
-                        <div class="contact-details">
-                            <div class="contact-item">
-                                <i class="fas fa-envelope"></i>
-                                <a href="mailto:garaiamit64@gmail.com" style="color:var(--muted)">garaiamit64@gmail.com</a>
+                            <div class="contact-channel-list">
+                                <a href="mailto:garaiamit64@gmail.com" class="channel-card">
+                                    <div class="channel-icon"><i class="fas fa-envelope"></i></div>
+                                    <div class="channel-meta">
+                                        <span class="channel-type">DIRECT DISPATCH</span>
+                                        <span class="channel-val">garaiamit64@gmail.com</span>
+                                    </div>
+                                    <i class="fas fa-arrow-right channel-arrow"></i>
+                                </a>
+
+                                <a href="https://wa.me/qr/EEASQ2MOEW73P1" target="_blank" rel="noopener noreferrer" class="channel-card">
+                                    <div class="channel-icon whatsapp-accent"><i class="fab fa-whatsapp"></i></div>
+                                    <div class="channel-meta">
+                                        <span class="channel-type">INSTANT MESSAGING</span>
+                                        <span class="channel-val">WhatsApp Transmission</span>
+                                    </div>
+                                    <i class="fas fa-arrow-right channel-arrow"></i>
+                                </a>
+
+                                <div class="channel-card">
+                                    <div class="channel-icon"><i class="fas fa-location-dot"></i></div>
+                                    <div class="channel-meta">
+                                        <span class="channel-type">BASE LOCATION</span>
+                                        <span class="channel-val">West Bengal, India</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="contact-item">
-                                <i class="fab fa-whatsapp"></i>
-                                <a href="https://wa.me/qr/EEASQ2MOEW73P1" target="_blank" rel="noopener noreferrer" style="color: var(--muted);">WhatsApp Message</a>
-                            </div>
-                            <div class="contact-item">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>India</span>
+
+                            <div class="contact-social-bar">
+                                <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                                <a href="https://www.linkedin.com/in/amit-garai-10a804267" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="https://www.instagram.com/itssz.amit" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="https://www.reddit.com/user/Amit154" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fab fa-reddit-alien"></i></a>
                             </div>
                         </div>
 
-                        <div class="contact-socials">
-                            <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                            <a href="https://www.linkedin.com/in/amit-garai-10a804267" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a href="https://www.instagram.com/itssz.amit" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.reddit.com/user/Amit154" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fab fa-reddit"></i></a>
+                        <!-- Crystalline Contact Form -->
+                        <div class="contact-form-panel tilt-card" data-tilt>
+                            <form class="crystalline-form" id="contactForm">
+                                <div class="form-header-row">
+                                    <span class="form-tag">MESSAGE TERMINAL</span>
+                                    <span class="form-crypto"><i class="fas fa-lock"></i> 256-BIT ENCRYPTED</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="formName">Ident / Full Name</label>
+                                    <input type="text" id="formName" name="name" placeholder="Alex Mercer" autocomplete="name" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="formEmail">Return Address / Email</label>
+                                    <input type="email" id="formEmail" name="email" placeholder="alex@domain.com" autocomplete="email" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="formMessage">Transmission Content</label>
+                                    <textarea id="formMessage" name="message" placeholder="Hi Amit, I'd like to collaborate on..." rows="4" required></textarea>
+                                </div>
+
+                                <div id="formStatus" class="form-status" role="alert"></div>
+
+                                <button type="submit" id="submitBtn" class="btn btn-primary btn-block magnetic-btn">
+                                    <i class="fas fa-paper-plane"></i> Transmit Packet
+                                </button>
+                            </form>
                         </div>
                     </div>
-
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <label for="formName">Your Name</label>
-                            <input type="text" id="formName" name="name" placeholder="John Doe" autocomplete="name" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="formEmail">Your Email</label>
-                            <input type="email" id="formEmail" name="email" placeholder="john@example.com" autocomplete="email" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="formMessage">Your Message</label>
-                            <textarea id="formMessage" name="message" placeholder="Hi Amit, I'd love to discuss..." rows="4" required></textarea>
-                        </div>
-                        <div id="formStatus" class="form-status" role="alert"></div>
-                        <button type="submit" id="submitBtn" class="btn btn-primary">
-                            <i class="fas fa-paper-plane"></i> Send Message
-                        </button>
-                    </form>
                 </section>
 
             </div> <!-- End Main Stack -->
         </main>
 
-        <footer>
-            <p>Built with <span style="color:var(--cyan)">Logic</span> &amp; <span style="color:var(--accent)">Curiosity</span> by Amit Kumar Garai &copy; 2026.</p>
-            <div class="footer-links">
-                <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/amit-garai-10a804267" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.instagram.com/itssz.amit" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.reddit.com/user/Amit154" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fab fa-reddit"></i></a>
-                <a href="mailto:garaiamit64@gmail.com" aria-label="Email Amit"><i class="fas fa-envelope"></i></a>
+        <!-- IGLOO-INSPIRED INTERACTIVE PARTICLE FOOTER -->
+        <footer class="crystalline-footer">
+            <canvas id="footer-particle-canvas" aria-label="Cosmic Particle Simulation Footer"></canvas>
+            
+            <div class="footer-overlay-content">
+                <div class="footer-brand-section">
+                    <div class="footer-brand">
+                        <span class="brand-crystal"></span>
+                        <span class="brand-text">AMIT<span class="brand-dot">.</span>AI</span>
+                    </div>
+                    <p class="footer-tagline">
+                        Forged with mathematical logic, procedural curiosity, and modern visual engineering &copy; 2026.
+                    </p>
+                </div>
+
+                <div class="footer-telemetry-strip">
+                    <span class="telemetry-node"><span class="dot-beacon"></span> STATUS: NOMINAL</span>
+                    <span class="telemetry-node">TZ: IST (UTC+5:30)</span>
+                    <span class="telemetry-node">CORE: BCA // ML-ENGINEER</span>
+                </div>
+
+                <div class="footer-social-links">
+                    <a href="https://github.com/amit-649" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/amit-garai-10a804267" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/itssz.amit" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.reddit.com/user/Amit154" target="_blank" rel="noopener noreferrer" aria-label="Reddit"><i class="fab fa-reddit-alien"></i></a>
+                    <a href="mailto:garaiamit64@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
             </div>
         </footer>
 
@@ -708,8 +989,8 @@
                 <div class="modal-title-group">
                     <i class="fas fa-file-lines modal-icon"></i>
                     <div>
-                        <h3 id="resumeModalTitle">Amit Kumar Garai — Resume</h3>
-                        <span class="modal-subtitle">Machine Learning &amp; Python Developer</span>
+                        <h3 id="resumeModalTitle">Amit Kumar Garai — Curriculum Vitae</h3>
+                        <span class="modal-subtitle">Machine Learning Engineer &amp; Python Developer</span>
                     </div>
                 </div>
                 <div class="modal-actions">
@@ -735,31 +1016,35 @@
         <div class="cmd-dialog">
             <div class="cmd-search-bar">
                 <i class="fas fa-magnifying-glass cmd-search-icon"></i>
-                <input type="text" id="cmdInput" placeholder="Type a command or search..." autocomplete="off" spellcheck="false" aria-label="Command search input" />
+                <input type="text" id="cmdInput" placeholder="Search commands, systems, or jump to section..." autocomplete="off" spellcheck="false" aria-label="Command search input" />
                 <span class="cmd-badge-hint">ESC</span>
             </div>
             <div class="cmd-results" id="cmdResults" role="listbox">
                 <!-- Navigation Group -->
                 <div class="cmd-group">
-                    <div class="cmd-group-title">Navigation</div>
+                    <div class="cmd-group-title">Navigation Nodes</div>
                     <div class="cmd-item" role="option" data-action="nav" data-target="#about">
-                        <span class="cmd-item-left"><i class="fas fa-user-astronaut"></i> About Me</span>
+                        <span class="cmd-item-left"><i class="fas fa-atom"></i> 01 // About Amit</span>
                         <span class="cmd-shortcut">Jump</span>
                     </div>
                     <div class="cmd-item" role="option" data-action="nav" data-target="#techstack">
-                        <span class="cmd-item-left"><i class="fas fa-layer-group"></i> Skills &amp; Tooling</span>
+                        <span class="cmd-item-left"><i class="fas fa-layer-group"></i> 02 // Technical Matrix</span>
                         <span class="cmd-shortcut">Jump</span>
                     </div>
+                    <div class="cmd-item" role="option" data-action="nav" data-target="#playground">
+                        <span class="cmd-item-left"><i class="fas fa-sliders"></i> 03 // Live ML Classifier Demo</span>
+                        <span class="cmd-shortcut">Demo</span>
+                    </div>
                     <div class="cmd-item" role="option" data-action="nav" data-target="#projects">
-                        <span class="cmd-item-left"><i class="fas fa-code-branch"></i> Featured Projects</span>
+                        <span class="cmd-item-left"><i class="fas fa-code-fork"></i> 04 // Featured Builds</span>
                         <span class="cmd-shortcut">Jump</span>
                     </div>
                     <div class="cmd-item" role="option" data-action="nav" data-target="#qualifications">
-                        <span class="cmd-item-left"><i class="fas fa-graduation-cap"></i> Journey &amp; Milestones</span>
+                        <span class="cmd-item-left"><i class="fas fa-compass"></i> 05 // Education &amp; Journey</span>
                         <span class="cmd-shortcut">Jump</span>
                     </div>
                     <div class="cmd-item" role="option" data-action="nav" data-target="#contact">
-                        <span class="cmd-item-left"><i class="fas fa-paper-plane"></i> Contact Amit</span>
+                        <span class="cmd-item-left"><i class="fas fa-satellite-dish"></i> 06 // Contact &amp; Transmit</span>
                         <span class="cmd-shortcut">Jump</span>
                     </div>
                 </div>
@@ -768,31 +1053,35 @@
                 <div class="cmd-group">
                     <div class="cmd-group-title">Quick Actions</div>
                     <div class="cmd-item" role="option" data-action="resume-preview">
-                        <span class="cmd-item-left"><i class="fas fa-file-lines"></i> View CV (In-Browser Preview)</span>
+                        <span class="cmd-item-left"><i class="fas fa-file-lines"></i> Open CV Preview Modal</span>
                         <span class="cmd-shortcut">CV</span>
                     </div>
                     <div class="cmd-item" role="option" data-action="resume-download">
-                        <span class="cmd-item-left"><i class="fas fa-download"></i> Download Resume PDF</span>
+                        <span class="cmd-item-left"><i class="fas fa-download"></i> Download Resume (PDF)</span>
                         <span class="cmd-shortcut">PDF</span>
                     </div>
                     <div class="cmd-item" role="option" data-action="copy-email">
-                        <span class="cmd-item-left"><i class="fas fa-copy"></i> Copy Email Address</span>
+                        <span class="cmd-item-left"><i class="fas fa-copy"></i> Copy Email (garaiamit64@gmail.com)</span>
                         <span class="cmd-shortcut">Copy</span>
                     </div>
                     <div class="cmd-item" role="option" data-action="toggle-theme">
-                        <span class="cmd-item-left"><i class="fas fa-circle-half-stroke"></i> Toggle Dark / Light Mode</span>
+                        <span class="cmd-item-left"><i class="fas fa-circle-half-stroke"></i> Toggle Crystalline Light / Dark</span>
                         <span class="cmd-shortcut">Theme</span>
+                    </div>
+                    <div class="cmd-item" role="option" data-action="toggle-sfx">
+                        <span class="cmd-item-left"><i class="fas fa-volume-high"></i> Toggle Futuristic Audio FX</span>
+                        <span class="cmd-shortcut">SFX</span>
                     </div>
                     <div class="cmd-item" role="option" data-action="whatsapp">
                         <span class="cmd-item-left"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</span>
                         <span class="cmd-shortcut">Chat</span>
                     </div>
                     <div class="cmd-item" role="option" data-action="github">
-                        <span class="cmd-item-left"><i class="fab fa-github"></i> Open GitHub Profile (@amit-649)</span>
+                        <span class="cmd-item-left"><i class="fab fa-github"></i> Open GitHub (@amit-649)</span>
                         <span class="cmd-shortcut">Link</span>
                     </div>
                     <div class="cmd-item" role="option" data-action="linkedin">
-                        <span class="cmd-item-left"><i class="fab fa-linkedin"></i> Open LinkedIn Profile</span>
+                        <span class="cmd-item-left"><i class="fab fa-linkedin-in"></i> Open LinkedIn</span>
                         <span class="cmd-shortcut">Link</span>
                     </div>
                 </div>
@@ -800,28 +1089,24 @@
                 <!-- Featured Projects Group -->
                 <div class="cmd-group">
                     <div class="cmd-group-title">Featured Projects</div>
+                    <div class="cmd-item" role="option" data-action="project-link" data-url="https://github.com/amit-649/apex-downloader">
+                        <span class="cmd-item-left"><i class="fas fa-film"></i> Apex Downloader (Next.js + WASM)</span>
+                        <span class="cmd-shortcut">WASM</span>
+                    </div>
                     <div class="cmd-item" role="option" data-action="project-link" data-url="https://github.com/amit-649/epic-games-auto-claimer">
                         <span class="cmd-item-left"><i class="fas fa-robot"></i> Epic Games Auto Claimer</span>
-                        <span class="cmd-shortcut">Playwright</span>
+                        <span class="cmd-shortcut">Python</span>
                     </div>
-                    <div class="cmd-item" role="option" data-action="nav" data-target="#projects">
-                        <span class="cmd-item-left"><i class="fas fa-brain"></i> Iris Flower Classification</span>
-                        <span class="cmd-shortcut">Scikit-Learn</span>
-                    </div>
-                    <div class="cmd-item" role="option" data-action="nav" data-target="#projects">
-                        <span class="cmd-item-left"><i class="fas fa-eye"></i> MNIST Digit Recognition</span>
-                        <span class="cmd-shortcut">SVM</span>
-                    </div>
-                    <div class="cmd-item" role="option" data-action="nav" data-target="#projects">
-                        <span class="cmd-item-left"><i class="fas fa-filter"></i> SMS Spam Detection</span>
-                        <span class="cmd-shortcut">NLP</span>
+                    <div class="cmd-item" role="option" data-action="project-link" data-url="https://github.com/amit-649/Whisper-Pulse">
+                        <span class="cmd-item-left"><i class="fas fa-shield-halved"></i> Whisper-Pulse</span>
+                        <span class="cmd-shortcut">FastAPI</span>
                     </div>
                 </div>
             </div>
             <div class="cmd-footer">
                 <span><kbd>↑</kbd> <kbd>↓</kbd> navigate</span>
-                <span><kbd>↵</kbd> select</span>
-                <span><kbd>esc</kbd> close</span>
+                <span><kbd>↵</kbd> execute</span>
+                <span><kbd>esc</kbd> dismiss</span>
             </div>
         </div>
     </div>
@@ -829,9 +1114,9 @@
     <!-- TOAST NOTIFICATION CONTAINER -->
     <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
-    <!-- Application Logic -->
-    <script src="js/config.js?v=2.3"></script>
-    <script src="js/script.js?v=3.3"></script>
+    <!-- Application Config & Logic -->
+    <script src="js/config.js?v=3.0"></script>
+    <script src="js/script.js?v=4.0"></script>
 </body>
 
 </html>
