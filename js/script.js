@@ -350,43 +350,94 @@
         animate();
     }
 
-    /* --- 4. KINETIC TEXT DECRYPTION SCRAMBLE EFFECT --- */
+    /* --- 4. KINETIC TEXT DECRYPTION SCRAMBLE EFFECT (JITTER-FREE) --- */
     function initKineticTextScramble() {
-        const glyphs = 'アイウエオカキクケコサシスセソタチツテト0123456789!<>-_/[]{}—=+*^?#_';
+        const glyphs = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789';
         const elements = document.querySelectorAll('.decrypt-text');
 
         elements.forEach(el => {
             const originalText = el.getAttribute('data-original') || el.textContent.trim();
             el.setAttribute('data-original', originalText);
 
-            function scramble() {
-                let iteration = 0;
-                clearInterval(el._scrambleInterval);
+            // Create locked-width character slots to permanently eliminate layout jitter
+            el.innerHTML = '';
+            const slots = [];
 
-                el._scrambleInterval = setInterval(() => {
-                    el.textContent = originalText
-                        .split('')
-                        .map((char, index) => {
-                            if (index < iteration) {
-                                return originalText[index];
-                            }
-                            if (char === ' ') return ' ';
-                            return glyphs[Math.floor(Math.random() * glyphs.length)];
-                        })
-                        .join('');
+            for (let i = 0; i < originalText.length; i++) {
+                const span = document.createElement('span');
+                const ch = originalText[i];
+                span.className = ch === ' ' ? 'scramble-slot is-space' : 'scramble-slot';
+                span.textContent = ch;
+                el.appendChild(span);
 
-                    if (iteration >= originalText.length) {
-                        clearInterval(el._scrambleInterval);
-                        el.textContent = originalText;
-                    }
+                // Pre-measure width of character so slot NEVER changes size
+                const measuredWidth = Math.max(span.getBoundingClientRect().width, ch === ' ' ? 10 : 8);
+                span.style.width = `${Math.ceil(measuredWidth)}px`;
 
-                    iteration += 1 / 2;
-                }, 30);
+                slots.push({
+                    span: span,
+                    targetChar: ch,
+                    isSpace: ch === ' '
+                });
             }
 
-            // Run on initial load and hover
-            scramble();
-            el.addEventListener('mouseenter', scramble);
+            let isRunning = false;
+            let cooldownTimer = null;
+
+            function runDecryption() {
+                if (isRunning) return;
+                isRunning = true;
+
+                let completed = 0;
+                const total = slots.length;
+
+                slots.forEach((slot, index) => {
+                    if (slot.isSpace) {
+                        completed++;
+                        return;
+                    }
+
+                    let cycles = 0;
+                    const maxCycles = 6 + index * 2; // Staggered resolution left-to-right
+
+                    slot.span.classList.add('is-glyph');
+
+                    const interval = setInterval(() => {
+                        cycles++;
+                        slot.span.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+
+                        if (cycles >= maxCycles) {
+                            clearInterval(interval);
+                            slot.span.textContent = slot.targetChar;
+                            slot.span.classList.remove('is-glyph');
+                            completed++;
+
+                            if (completed >= total) {
+                                isRunning = false;
+                            }
+                        }
+                    }, 40);
+                });
+            }
+
+            // Run initial decryption after slight delay
+            setTimeout(runDecryption, 300);
+
+            // Hover trigger with anti-jitter debounce
+            el.addEventListener('mouseenter', () => {
+                if (cooldownTimer) return;
+                runDecryption();
+                playSFX('hover');
+                cooldownTimer = setTimeout(() => {
+                    cooldownTimer = null;
+                }, 1200);
+            });
+
+            // Click trigger
+            el.addEventListener('click', () => {
+                runDecryption();
+                playSFX('click');
+            });
         });
     }
 

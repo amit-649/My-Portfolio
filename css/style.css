@@ -422,10 +422,30 @@ a {
 }
 
 .kinetic-name {
-    display: inline-block;
+    display: inline-flex;
+    align-items: baseline;
     color: var(--text-primary);
-    cursor: default;
+    cursor: pointer;
     position: relative;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.scramble-slot {
+    display: inline-block;
+    text-align: center;
+    transition: color 0.15s ease, text-shadow 0.15s ease;
+    will-change: transform, opacity;
+}
+
+.scramble-slot.is-glyph {
+    color: var(--cyan);
+    text-shadow: 0 0 10px var(--cyan-glow);
+    font-family: var(--font-mono);
+}
+
+.scramble-slot.is-space {
+    pointer-events: none;
 }
 
 .hero-role {
