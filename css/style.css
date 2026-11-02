@@ -425,23 +425,25 @@ a {
     display: inline-flex;
     align-items: baseline;
     color: var(--text-primary);
-    cursor: pointer;
+    cursor: ew-resize;
     position: relative;
     white-space: nowrap;
     user-select: none;
+    transition: filter 0.2s ease;
 }
 
 .scramble-slot {
     display: inline-block;
     text-align: center;
-    transition: color 0.15s ease, text-shadow 0.15s ease;
-    will-change: transform, opacity;
+    transition: color 0.12s ease, text-shadow 0.12s ease, transform 0.12s ease;
+    will-change: transform, color;
 }
 
 .scramble-slot.is-glyph {
     color: var(--cyan);
-    text-shadow: 0 0 10px var(--cyan-glow);
-    font-family: var(--font-mono);
+    text-shadow: 0 0 10px var(--cyan-glow), 0 0 18px rgba(56, 189, 248, 0.3);
+    font-family: var(--font-heading);
+    transform: scale(1.04);
 }
 
 .scramble-slot.is-space {

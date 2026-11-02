@@ -350,93 +350,165 @@
         animate();
     }
 
-    /* --- 4. KINETIC TEXT DECRYPTION SCRAMBLE EFFECT (JITTER-FREE) --- */
+    /* --- 4. INTERACTIVE KATAKANA / ENGLISH SCRUBBER (SCRATCH-REVEAL) --- */
     function initKineticTextScramble() {
-        const glyphs = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789';
         const elements = document.querySelectorAll('.decrypt-text');
 
         elements.forEach(el => {
-            const originalText = el.getAttribute('data-original') || el.textContent.trim();
-            el.setAttribute('data-original', originalText);
+            const originalEnglish = el.getAttribute('data-original') || el.textContent.trim();
+            el.setAttribute('data-original', originalEnglish);
 
-            // Create locked-width character slots to permanently eliminate layout jitter
+            // Accurate Katakana translation mapping for "Amit Kumar Garai"
+            // Total length: 16 characters
+            const katakanaMap = [
+                'ア', 'ミ', 'ッ', 'ト', ' ',
+                'ク', 'マ', 'ー', 'ル', '・', ' ',
+                'ガ', 'ラ', 'ー', 'イ', '・'
+            ];
+
+            // Build locked-width character slots
             el.innerHTML = '';
             const slots = [];
 
-            for (let i = 0; i < originalText.length; i++) {
+            for (let i = 0; i < originalEnglish.length; i++) {
+                const enChar = originalEnglish[i];
+                const jpChar = katakanaMap[i] || enChar;
+                const isSpace = enChar === ' ';
+
                 const span = document.createElement('span');
-                const ch = originalText[i];
-                span.className = ch === ' ' ? 'scramble-slot is-space' : 'scramble-slot';
-                span.textContent = ch;
+                span.className = isSpace ? 'scramble-slot is-space' : 'scramble-slot';
+                span.textContent = enChar;
                 el.appendChild(span);
 
-                // Pre-measure width of character so slot NEVER changes size
-                const measuredWidth = Math.max(span.getBoundingClientRect().width, ch === ' ' ? 10 : 8);
-                span.style.width = `${Math.ceil(measuredWidth)}px`;
+                // Measure width for both English and Japanese to find the perfect locked width
+                const wEn = span.getBoundingClientRect().width;
+                span.textContent = jpChar;
+                const wJp = span.getBoundingClientRect().width;
+                span.textContent = enChar; // Reset back to English
+
+                const finalWidth = isSpace ? 12 : Math.ceil(Math.max(wEn, wJp, 16));
+                span.style.width = `${finalWidth}px`;
+                span.style.display = 'inline-block';
+                span.style.textAlign = 'center';
 
                 slots.push({
                     span: span,
-                    targetChar: ch,
-                    isSpace: ch === ' '
+                    enChar: enChar,
+                    jpChar: jpChar,
+                    isSpace: isSpace,
+                    currentMode: 'en' // 'en' or 'jp'
                 });
             }
 
-            let isRunning = false;
-            let cooldownTimer = null;
+            let leaveResetTimer = null;
+            let lastAudioTick = 0;
 
-            function runDecryption() {
-                if (isRunning) return;
-                isRunning = true;
+            function playScrubSound() {
+                const now = Date.now();
+                if (now - lastAudioTick > 80) {
+                    playSFX('hover');
+                    lastAudioTick = now;
+                }
+            }
 
-                let completed = 0;
-                const total = slots.length;
-
-                slots.forEach((slot, index) => {
-                    if (slot.isSpace) {
-                        completed++;
-                        return;
-                    }
-
-                    let cycles = 0;
-                    const maxCycles = 6 + index * 2; // Staggered resolution left-to-right
-
+            // Set all slots to Japanese on hover entry
+            function enterJapaneseMode() {
+                clearTimeout(leaveResetTimer);
+                slots.forEach(slot => {
+                    if (slot.isSpace) return;
+                    slot.span.textContent = slot.jpChar;
                     slot.span.classList.add('is-glyph');
-
-                    const interval = setInterval(() => {
-                        cycles++;
-                        slot.span.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
-
-                        if (cycles >= maxCycles) {
-                            clearInterval(interval);
-                            slot.span.textContent = slot.targetChar;
-                            slot.span.classList.remove('is-glyph');
-                            completed++;
-
-                            if (completed >= total) {
-                                isRunning = false;
-                            }
-                        }
-                    }, 40);
+                    slot.currentMode = 'jp';
                 });
+                playScrubSound();
             }
 
-            // Run initial decryption after slight delay
-            setTimeout(runDecryption, 300);
+            // Scrubbing logic: turning letters to English left-to-right, and back to Japanese right-to-left
+            function scrub(clientX) {
+                clearTimeout(leaveResetTimer);
+                const rect = el.getBoundingClientRect();
+                const mouseX = clientX - rect.left;
+                let changed = false;
 
-            // Hover trigger with anti-jitter debounce
-            el.addEventListener('mouseenter', () => {
-                if (cooldownTimer) return;
-                runDecryption();
-                playSFX('hover');
-                cooldownTimer = setTimeout(() => {
-                    cooldownTimer = null;
-                }, 1200);
+                slots.forEach(slot => {
+                    if (slot.isSpace) return;
+
+                    const slotCenterX = slot.span.offsetLeft + slot.span.offsetWidth / 2;
+
+                    // If mouse has passed this character (from left to right), show English
+                    if (mouseX >= slotCenterX) {
+                        if (slot.currentMode !== 'en') {
+                            slot.span.textContent = slot.enChar;
+                            slot.span.classList.remove('is-glyph');
+                            slot.currentMode = 'en';
+                            changed = true;
+                        }
+                    } else {
+                        // If mouse is to the left of this character, show Japanese
+                        if (slot.currentMode !== 'jp') {
+                            slot.span.textContent = slot.jpChar;
+                            slot.span.classList.add('is-glyph');
+                            slot.currentMode = 'jp';
+                            changed = true;
+                        }
+                    }
+                });
+
+                if (changed) {
+                    playScrubSound();
+                }
+            }
+
+            // On mouseenter: jump immediately to Japanese so the user sees Katakana
+            el.addEventListener('mouseenter', (e) => {
+                enterJapaneseMode();
+                scrub(e.clientX);
             });
 
-            // Click trigger
-            el.addEventListener('click', () => {
-                runDecryption();
-                playSFX('click');
+            // As mouse slides across the element
+            el.addEventListener('mousemove', (e) => {
+                scrub(e.clientX);
+            }, { passive: true });
+
+            // On mouseleave: smoothly animate back to English after a moment
+            el.addEventListener('mouseleave', () => {
+                leaveResetTimer = setTimeout(() => {
+                    slots.forEach((slot, idx) => {
+                        if (slot.isSpace) return;
+                        setTimeout(() => {
+                            slot.span.textContent = slot.enChar;
+                            slot.span.classList.remove('is-glyph');
+                            slot.currentMode = 'en';
+                        }, idx * 35);
+                    });
+                }, 700);
+            });
+
+            // Touch support for mobile scrubbing
+            el.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    enterJapaneseMode();
+                    scrub(e.touches[0].clientX);
+                }
+            }, { passive: true });
+
+            el.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1) {
+                    scrub(e.touches[0].clientX);
+                }
+            }, { passive: true });
+
+            el.addEventListener('touchend', () => {
+                leaveResetTimer = setTimeout(() => {
+                    slots.forEach((slot, idx) => {
+                        if (slot.isSpace) return;
+                        setTimeout(() => {
+                            slot.span.textContent = slot.enChar;
+                            slot.span.classList.remove('is-glyph');
+                            slot.currentMode = 'en';
+                        }, idx * 35);
+                    });
+                }, 700);
             });
         });
     }
