@@ -130,6 +130,14 @@
                 gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.15);
                 osc.start(now);
                 osc.stop(now + 0.15);
+            } else if (type === 'slider') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(380, now);
+                osc.frequency.exponentialRampToValueAtTime(560, now + 0.035);
+                gain.gain.setValueAtTime(0.012, now);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.035);
+                osc.start(now);
+                osc.stop(now + 0.035);
             }
         } catch (e) {
             // Audio policy or device limitation
@@ -232,6 +240,23 @@
         const pointsMesh = new THREE.Points(pointGeo, pointMat);
         scene.add(pointsMesh);
 
+        // Concentric Crystalline Shroud (Refractive Geometric Dodecahedron)
+        const shroudGeo = new THREE.DodecahedronGeometry(1.68, 0);
+        const shroudMat = new THREE.MeshBasicMaterial({
+            color: 0x38bdf8,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.14
+        });
+        const shroudMesh = new THREE.Mesh(shroudGeo, shroudMat);
+        scene.add(shroudMesh);
+
+        // Scroll-linked camera parallax tracking
+        let scrollY = 0;
+        window.addEventListener('scroll', () => {
+            scrollY = window.scrollY || window.pageYOffset;
+        }, { passive: true });
+
         // Orbiting Cosmic Frost Particle Ring
         const ringParticleCount = 120;
         const ringGeo = new THREE.BufferGeometry();
@@ -332,16 +357,24 @@
                 return;
             }
 
-            // Apply inertia damping
+            // Breathing pulse on the inner core crystal
+            const nowMs = performance.now();
+            const breath = 1.0 + Math.sin(nowMs * 0.0022) * 0.06;
+            innerMesh.scale.set(breath, breath, breath);
+
+            // Apply fluid momentum damping with smooth glide
             if (!isDragging) {
-                rotationVelocity.x *= 0.95;
-                rotationVelocity.y *= 0.95;
-                if (Math.abs(rotationVelocity.x) < 0.001) rotationVelocity.x = 0.002;
-                if (Math.abs(rotationVelocity.y) < 0.001) rotationVelocity.y = 0.0035;
+                rotationVelocity.x *= 0.96;
+                rotationVelocity.y *= 0.96;
+                if (Math.abs(rotationVelocity.x) < 0.0015) rotationVelocity.x = 0.0018;
+                if (Math.abs(rotationVelocity.y) < 0.002) rotationVelocity.y = 0.0032;
             }
 
             outerMesh.rotation.x += rotationVelocity.x;
             outerMesh.rotation.y += rotationVelocity.y;
+
+            shroudMesh.rotation.x -= rotationVelocity.x * 0.45;
+            shroudMesh.rotation.y += rotationVelocity.y * 0.55;
 
             innerMesh.rotation.x -= rotationVelocity.x * 1.4;
             innerMesh.rotation.y -= rotationVelocity.y * 1.4;
@@ -351,8 +384,9 @@
 
             ringMesh.rotation.y += 0.0025;
 
-            // Parallax blend
-            scene.rotation.x += (targetRotation.x - scene.rotation.x) * 0.05;
+            // Parallax blend + scroll offset integration
+            const dynamicTargetX = targetRotation.x + (scrollY * 0.00025);
+            scene.rotation.x += (dynamicTargetX - scene.rotation.x) * 0.05;
             scene.rotation.y += (targetRotation.y - scene.rotation.y) * 0.05;
 
             renderer.render(scene, camera);
@@ -754,8 +788,16 @@
             if (probVirginicaFill) probVirginicaFill.style.width = probs['Iris Virginica'].toFixed(1) + '%';
         }
 
+        let lastSliderAudio = 0;
         [inputSL, inputSW, inputPL, inputPW].forEach(slider => {
-            slider.addEventListener('input', calculateInference);
+            slider.addEventListener('input', () => {
+                calculateInference();
+                const now = Date.now();
+                if (now - lastSliderAudio > 45) {
+                    playSFX('slider');
+                    lastSliderAudio = now;
+                }
+            });
         });
 
         calculateInference();
