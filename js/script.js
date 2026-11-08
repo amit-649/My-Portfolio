@@ -411,7 +411,7 @@
                 'ガ', 'ァ', 'ラ', 'ー', 'イ'
             ];
 
-            // Build locked-width character slots
+            // Build natural typography character slots
             el.innerHTML = '';
             const slots = [];
 
@@ -423,10 +423,9 @@
                 const span = document.createElement('span');
                 span.className = isSpace ? 'scramble-slot is-space' : 'scramble-slot';
                 span.textContent = enChar;
-                span.style.width = isSpace ? '0.35em' : '1.05em';
-                span.style.display = 'inline-block';
-                span.style.textAlign = 'center';
-                span.style.flexShrink = '0';
+                if (isSpace) {
+                    span.innerHTML = '&nbsp;';
+                }
                 el.appendChild(span);
 
                 slots.push({
@@ -466,16 +465,15 @@
                 clearTimeout(leaveResetTimer);
                 const rect = el.getBoundingClientRect();
                 const mouseX = clientX - rect.left;
+                const progress = Math.max(0, Math.min(1, mouseX / rect.width));
+                const revealIndex = Math.floor(progress * (slots.length + 1)) - 1;
                 let changed = false;
 
-                slots.forEach(slot => {
+                slots.forEach((slot, idx) => {
                     if (slot.isSpace) return;
 
-                    const slotRect = slot.span.getBoundingClientRect();
-                    const slotCenterX = (slotRect.left - rect.left) + slotRect.width / 2;
-
-                    // If mouse has passed this character (from left to right), show English
-                    if (mouseX >= slotCenterX) {
+                    // If mouse has passed this character position, show English
+                    if (idx <= revealIndex) {
                         if (slot.currentMode !== 'en') {
                             slot.span.textContent = slot.enChar;
                             slot.span.classList.remove('is-glyph');
