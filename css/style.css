@@ -108,6 +108,50 @@ body {
     transition: background-color var(--transition-smooth), color var(--transition-smooth);
 }
 
+/* --- CRAFT FLOOR: BROWSER SURFACES & ACCESSIBILITY --- */
+::selection {
+    background: var(--cyan);
+    color: #050811;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(56, 189, 248, 0.22);
+    border-radius: var(--radius-pill);
+    border: 2px solid var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--cyan);
+}
+
+:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+    border-radius: var(--radius-xs);
+    box-shadow: 0 0 16px var(--cyan-glow);
+}
+
+input, textarea {
+    caret-color: var(--cyan);
+}
+
+a {
+    text-underline-offset: 4px;
+}
+
+h1, h2, h3, .section-heading, .hero-title, .hero-role {
+    text-wrap: balance;
+}
+
 /* --- AMBIENT NOISE & CURSOR SPOTLIGHT --- */
 .ambient-glow {
     position: fixed;
@@ -929,12 +973,15 @@ a {
 
 .section-kicker {
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     font-weight: 600;
     color: var(--cyan);
-    letter-spacing: 1.5px;
-    display: block;
-    margin-bottom: 6px;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
 }
 
 .section-heading {
@@ -976,7 +1023,7 @@ a {
     font-size: 1.12rem;
     line-height: 1.7;
     color: var(--text-secondary);
-    max-width: 900px;
+    max-width: 68ch;
     margin-bottom: 34px;
 }
 
@@ -1241,7 +1288,7 @@ a {
 .playground-desc {
     font-size: 1.05rem;
     color: var(--text-secondary);
-    max-width: 820px;
+    max-width: 68ch;
     margin-bottom: 32px;
 }
 

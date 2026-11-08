@@ -316,10 +316,21 @@
             isVisible = !document.hidden;
         });
 
+        // Reactive prefers-reduced-motion listener (Rule 49 of ui-ux-pro-max threejs stack)
+        const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let prefersReducedMotion = motionQuery.matches;
+        motionQuery.addEventListener('change', (e) => {
+            prefersReducedMotion = e.matches;
+        });
+
         // Animation Loop
         function animate() {
             requestAnimationFrame(animate);
             if (!isVisible) return;
+            if (prefersReducedMotion) {
+                renderer.render(scene, camera);
+                return;
+            }
 
             // Apply inertia damping
             if (!isDragging) {
