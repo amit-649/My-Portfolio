@@ -408,7 +408,7 @@
             const katakanaMap = [
                 'ア', 'ミ', 'ッ', 'ト', ' ',
                 'ク', 'マ', 'ー', 'ル', '・', ' ',
-                'ガ', 'ラ', 'ー', 'イ', '・'
+                'ガ', 'ァ', 'ラ', 'ー', 'イ'
             ];
 
             // Build locked-width character slots
@@ -423,19 +423,11 @@
                 const span = document.createElement('span');
                 span.className = isSpace ? 'scramble-slot is-space' : 'scramble-slot';
                 span.textContent = enChar;
-                el.appendChild(span);
-
-                // Measure width for both English and Japanese to find the perfect locked width
-                const wEn = span.getBoundingClientRect().width;
-                span.textContent = jpChar;
-                const wJp = span.getBoundingClientRect().width;
-                span.textContent = enChar; // Reset back to English
-
-                const fontSize = parseFloat(window.getComputedStyle(span).fontSize) || 40;
-                const emWidth = isSpace ? 0.35 : Math.max(0.68, (Math.max(wEn, wJp) / fontSize) * 1.05);
-                span.style.width = `${emWidth.toFixed(2)}em`;
+                span.style.width = isSpace ? '0.35em' : '1.05em';
                 span.style.display = 'inline-block';
                 span.style.textAlign = 'center';
+                span.style.flexShrink = '0';
+                el.appendChild(span);
 
                 slots.push({
                     span: span,
@@ -479,7 +471,8 @@
                 slots.forEach(slot => {
                     if (slot.isSpace) return;
 
-                    const slotCenterX = slot.span.offsetLeft + slot.span.offsetWidth / 2;
+                    const slotRect = slot.span.getBoundingClientRect();
+                    const slotCenterX = (slotRect.left - rect.left) + slotRect.width / 2;
 
                     // If mouse has passed this character (from left to right), show English
                     if (mouseX >= slotCenterX) {
@@ -505,10 +498,9 @@
                 }
             }
 
-            // On mouseenter: jump immediately to Japanese so the user sees Katakana
-            el.addEventListener('mouseenter', (e) => {
+            // On mouseenter: reveal Japanese Katakana name first
+            el.addEventListener('mouseenter', () => {
                 enterJapaneseMode();
-                scrub(e.clientX);
             });
 
             // As mouse slides across the element
@@ -525,9 +517,9 @@
                             slot.span.textContent = slot.enChar;
                             slot.span.classList.remove('is-glyph');
                             slot.currentMode = 'en';
-                        }, idx * 35);
+                        }, idx * 25);
                     });
-                }, 700);
+                }, 300);
             });
 
             // Touch support for mobile scrubbing

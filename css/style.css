@@ -154,7 +154,7 @@ a {
     text-underline-offset: 4px;
 }
 
-h1, h2, h3, .section-heading, .hero-title, .hero-role {
+h2, h3, .section-heading, .hero-role {
     text-wrap: balance;
 }
 
@@ -472,14 +472,13 @@ a {
 }
 
 .kinetic-name {
-    display: inline-flex;
+    display: inline-flex !important;
     align-items: baseline;
     color: var(--text-primary);
     cursor: ew-resize;
     position: relative;
-    white-space: normal;
-    flex-wrap: wrap;
-    max-width: 100%;
+    white-space: nowrap !important;
+    flex-wrap: nowrap !important;
     user-select: none;
     transition: filter 0.2s ease;
 }
