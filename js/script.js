@@ -431,8 +431,9 @@
                 const wJp = span.getBoundingClientRect().width;
                 span.textContent = enChar; // Reset back to English
 
-                const finalWidth = isSpace ? 12 : Math.ceil(Math.max(wEn, wJp, 16));
-                span.style.width = `${finalWidth}px`;
+                const fontSize = parseFloat(window.getComputedStyle(span).fontSize) || 40;
+                const emWidth = isSpace ? 0.35 : Math.max(0.68, (Math.max(wEn, wJp) / fontSize) * 1.05);
+                span.style.width = `${emWidth.toFixed(2)}em`;
                 span.style.display = 'inline-block';
                 span.style.textAlign = 'center';
 

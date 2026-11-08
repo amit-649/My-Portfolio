@@ -98,11 +98,17 @@ html {
     -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+    overflow-x: clip;
+    max-width: 100%;
+}
+
 body {
     font-family: var(--font-body);
     font-size: 1rem;
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: clip;
+    max-width: 100%;
     position: relative;
     background-color: var(--bg-base);
     transition: background-color var(--transition-smooth), color var(--transition-smooth);
@@ -471,7 +477,9 @@ a {
     color: var(--text-primary);
     cursor: ew-resize;
     position: relative;
-    white-space: nowrap;
+    white-space: normal;
+    flex-wrap: wrap;
+    max-width: 100%;
     user-select: none;
     transition: filter 0.2s ease;
 }
