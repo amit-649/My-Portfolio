@@ -404,9 +404,14 @@ a {
 
 .hero-grid {
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 48px;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: clamp(32px, 4vw, 56px);
     align-items: center;
+    width: 100%;
+}
+
+.hero-content {
+    min-width: 0;
     width: 100%;
 }
 
@@ -540,6 +545,8 @@ a {
     overflow: hidden;
     margin-bottom: 30px;
     backdrop-filter: blur(16px);
+    max-width: 620px;
+    width: 100%;
 }
 
 .terminal-header {
@@ -787,7 +794,7 @@ a {
 .crystal-viewport-wrapper {
     position: relative;
     width: 100%;
-    max-width: 480px;
+    max-width: clamp(340px, 32vw, 480px);
     aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
@@ -807,7 +814,7 @@ a {
 
 .crystal-hint {
     position: absolute;
-    bottom: 0px;
+    top: 14px;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(6, 10, 18, 0.75);
@@ -837,8 +844,8 @@ a {
 /* Embedded Holo Avatar */
 .avatar-holo-plate {
     position: absolute;
-    bottom: 25px;
-    right: -10px;
+    bottom: 15px;
+    right: 0px;
     background: var(--bg-surface);
     backdrop-filter: blur(20px);
     border: 1px solid var(--border-medium);
@@ -850,6 +857,7 @@ a {
     box-shadow: 0 16px 35px -8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.15);
     z-index: 6;
     transition: var(--transition-smooth);
+    max-width: calc(100% - 24px);
 }
 
 .avatar-holo-plate:hover {
@@ -2521,7 +2529,7 @@ a {
 }
 
 /* --- 17. RESPONSIVENESS & MEDIA QUERIES --- */
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
     .hero-grid {
         grid-template-columns: 1fr;
         gap: 36px;
@@ -2610,6 +2618,21 @@ a {
 
     .milestone-marker {
         left: -30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .crystal-viewport-wrapper {
+        max-width: 300px;
+    }
+    .avatar-holo-plate {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        width: max-content;
+        max-width: 95%;
+        padding: 8px 12px;
+        bottom: 8px;
     }
 }
 
